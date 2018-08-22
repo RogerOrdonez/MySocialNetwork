@@ -5,22 +5,15 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
+//cargar rutas
+var userRoutes = require('./routes/user');
+
 // Middlewares
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //rutas
-app.get('/', (req, res) => {
-    res.status(200).send({
-        mensaje: 'Ruta Home del servidor NodeJS'
-    });
-});
-
-app.get('/prueba', (req, res) => {
-    res.status(200).send({
-        mensaje: 'Ruta de pruebas de servidor NodeJS'
-    });
-});
+app.use('/api', userRoutes);
 
 // exportar
 module.exports = app;
