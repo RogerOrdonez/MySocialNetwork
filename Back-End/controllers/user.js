@@ -62,7 +62,53 @@ function saveUser(request, response) {
 
 }
 
+function loginUser(request, response) {
+    var params = request.body;
+    var email = params.email;
+    var password = params.password;
+
+    /*User.findOne({ email: email }, 'name surname nick image role email password', (err, usr) => {
+        console.log(usr);
+        if (err) return response.status(500).send({ message: 'Error al consultar en la BD' + err });
+        if (usr) {
+            bcrypt.compare(password, usr.password, (err, check) => {
+                if (err) return response.status(500).send({ message: 'Error al autenticar al usuario 1' + err });
+                if (check) {
+                    //Devolver datos de usuario
+                    response.status(500).send({ user: usr });
+                } else {
+                    return response.status(500).send({ message: 'Error al autenticar al usuario 2' });
+                }
+            });
+        } else {
+            response.status(500).send({ message: 'Error al autenticar al usuario 3' });
+        }
+    });*/
+
+    User.findOne({ email: email })
+        .exec((err, usr) => {
+            console.log(usr);
+            if (err) return response.status(500).send({ message: 'Error al consultar en la BD' + err });
+            if (usr) {
+                bcrypt.compare(password, usr.password, (err, check) => {
+                    if (err) return response.status(500).send({ message: 'Error al autenticar al usuario 1' + err });
+                    if (check) {
+                        //Devolver datos de usuario
+                        usr.password = undefined;
+                        response.status(500).send({ user: usr });
+                    } else {
+                        return response.status(500).send({ message: 'Error al autenticar al usuario 2' });
+                    }
+                });
+            } else {
+                response.status(500).send({ message: 'Error al autenticar al usuario 3' });
+            }
+        });
+
+}
+
 module.exports = {
     test,
-    saveUser
+    saveUser,
+    loginUser
 }
