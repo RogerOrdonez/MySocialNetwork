@@ -2,7 +2,7 @@
 
 var jwt = require('jwt-simple');
 var moment = require('moment');
-var secret = 'llave_privada-para-encriptar_tokens';
+exports.secret = 'llave_privada-para-encriptar_tokens';
 
 exports.createToken = function(user) {
     var payload = {
