@@ -2,6 +2,7 @@
 
 var User = require('../models/user');
 var bcrypt = require('bcrypt-nodejs');
+var jwt = require('../services/jwt');
 
 function test(req, res) {
     res.status(200).send({
@@ -93,9 +94,15 @@ function loginUser(request, response) {
                 bcrypt.compare(password, usr.password, (err, check) => {
                     if (err) return response.status(500).send({ message: 'Error al autenticar al usuario 1' + err });
                     if (check) {
-                        //Devolver datos de usuario
-                        usr.password = undefined;
-                        response.status(500).send({ user: usr });
+                        if (params.gettoken) {
+                            return response.status(200).send({
+                                token: jwt.createToken(usr)
+                            });
+                        } else {
+                            //Devolver datos de usuario
+                            usr.password = undefined;
+                            response.status(500).send({ user: usr });
+                        }
                     } else {
                         return response.status(500).send({ message: 'Error al autenticar al usuario 2' });
                     }
