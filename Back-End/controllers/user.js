@@ -111,11 +111,26 @@ function loginUser(request, response) {
                 response.status(500).send({ message: 'Error al autenticar al usuario 3' });
             }
         });
+}
 
+function getUser(request, response) {
+    var userId = request.params.id;
+    User.findById(userId, (err, usr) => {
+        if (err) {
+            return response.status(500).send({ message: 'Error en la petición ' });
+        }
+        if (!usr) {
+            return response.status(404).send({ message: 'Error: el usuario no existe' });
+        }
+
+        return response.status(200).send(usr);
+
+    });
 }
 
 module.exports = {
     test,
     saveUser,
-    loginUser
+    loginUser,
+    getUser
 }
