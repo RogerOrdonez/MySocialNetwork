@@ -64,9 +64,38 @@ function getFollowingUsers(request, response) {
     });
 }
 
+function getFollowerUsers(request, response) {
+    var userId = request.user.sub;
+
+    if (request.params.id && request.params.page) {
+        userId = request.params.id;
+    }
+
+    var page = 1;
+
+    if (request.params.page) {
+        page = request.params.page;
+    } else {
+        page = request.params.id;
+    }
+
+    var itemsPerPage = 4;
+
+    Follow.find({ followed: userId }).populate('user').paginate(page, itemsPerPage, (err, follows, total) => {
+        if (err) return response.status(500).send({ message: 'Error: No se pudo obtener los follows.' });
+        if (!follows) return response.status(404).send({ message: 'Error: No hay seguidores.' });
+        response.status(200).send({
+            total,
+            pages: Math.ceil(total / itemsPerPage),
+            follower: follows
+        });
+    });
+}
+
 module.exports = {
     test,
     saveFollow,
     deleteFollow,
-    getFollowingUsers
+    getFollowingUsers,
+    getFollowerUsers
 }
