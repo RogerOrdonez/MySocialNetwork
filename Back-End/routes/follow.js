@@ -7,4 +7,6 @@ var middleAuth = require('../middlewares/authenticated');
 
 api.get('/test-follow', middleAuth.ensureAuth, followController.test);
 
+api.post('/follow', middleAuth.ensureAuth, followController.saveFollow);
+
 module.exports = api;
