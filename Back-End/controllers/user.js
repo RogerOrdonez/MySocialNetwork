@@ -160,10 +160,35 @@ function getUsers(request, response) {
     });
 }
 
+function updateUser(request, response) {
+    var userId = request.params.id;
+    var update = request.body;
+
+    if (update.password) {
+        delete update.password;
+    }
+    if (userId != request.user.sub) {
+        return response.status(500).send({ message: 'Error: Permisos insuficientes para actualizar los datos del usuario' });
+    }
+
+    User.findByIdAndUpdate(userId, update, { new: true }, (err, usrUpdated) => {
+        if (err) {
+            return response.status(500).send({ message: 'Error en la petición...' });
+        }
+        if (!usrUpdated) {
+            return response.status(404).send({ message: 'No se ha podido actualizar el usuario...' });
+        }
+        return response.status(200).send({
+            user: usrUpdated
+        });
+    });
+}
+
 module.exports = {
     test,
     saveUser,
     loginUser,
     getUser,
-    getUsers
+    getUsers,
+    updateUser
 }
