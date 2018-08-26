@@ -3,6 +3,7 @@
 var User = require('../models/user');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../services/jwt');
+var pagination = require('mongoose-pagination');
 
 function test(req, res) {
     res.status(200).send({
@@ -128,9 +129,41 @@ function getUser(request, response) {
     });
 }
 
+function getUsers(request, response) {
+    var identityUser = request.user.sub;
+    var page = 1;
+
+    if (request.params.page) {
+        page = request.params.page;
+    }
+
+    var itemsPerPage = 3;
+
+
+    User.find().sort('_id').paginate(page, itemsPerPage, (err, usrs, total) => {
+
+        if (err) {
+            return response.status(500).send({ message: 'Error en la petición...' });
+        }
+        if (!usrs) {
+            return response.status(404).send({ message: 'Error: No existen usuarios disponibles' });
+        }
+        if (page > Math.ceil(total / itemsPerPage)) {
+            return response.status(404).send({ message: 'Error: Ya no hay más datos que consultar' });
+        }
+
+        return response.status(200).send({
+            usrs,
+            total,
+            pages: Math.ceil(total / itemsPerPage)
+        });
+    });
+}
+
 module.exports = {
     test,
     saveUser,
     loginUser,
-    getUser
+    getUser,
+    getUsers
 }
