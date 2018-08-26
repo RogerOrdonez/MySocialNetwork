@@ -27,7 +27,20 @@ function saveFollow(request, response) {
     });
 }
 
+function deleteFollow(request, response) {
+    var userId = request.user.sub;
+    var followId = request.params.id;
+    Follow.find({
+        'user': userId,
+        'followed': followId
+    }).remove(err => {
+        if (err) response.status(500).send({ message: 'Error: No se pudo eliminar el follow.' });
+        response.status(200).send({ message: 'El follow se ha eliminado' });
+    });
+}
+
 module.exports = {
     test,
-    saveFollow
+    saveFollow,
+    deleteFollow
 }
