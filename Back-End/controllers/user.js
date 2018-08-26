@@ -220,6 +220,18 @@ function uploadImage(request, response) {
     }
 }
 
+function getImageFile(request, response) {
+    var imageFile = request.params.imageFile;
+    var pathFile = './uploads/users/' + imageFile;
+    fs.exists(pathFile, (exists) => {
+        if (exists) {
+            response.sendFile(path.resolve(pathFile));
+        } else {
+            response.status(404).send({ message: 'Error: No existe la imagen' });
+        }
+    });
+}
+
 function removeFileFromUploads(response, filePath, message) {
     fs.unlink(filePath, (err) => {
         response.status(500).send({ message: message });
@@ -233,5 +245,6 @@ module.exports = {
     getUser,
     getUsers,
     updateUser,
-    uploadImage
+    uploadImage,
+    getImageFile
 }
