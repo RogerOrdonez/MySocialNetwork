@@ -5,7 +5,7 @@ var app = require('./app');
 var port = 3800;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/MySocialNetwork', { useMongoClient: true })
+mongoose.connect('mongodb://localhost:27017/MySocialNetwork', { useNewUrlParser: true })
     .then(() => {
         console.log('La conexión a la BD MySocialNetwork ha sido exitosa...');
         app.listen(port, () => {
