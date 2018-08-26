@@ -4,6 +4,8 @@ var User = require('../models/user');
 var bcrypt = require('bcrypt-nodejs');
 var jwt = require('../services/jwt');
 var pagination = require('mongoose-pagination');
+var fs = require('fs');
+var path = require('path');
 
 function test(req, res) {
     res.status(200).send({
@@ -184,11 +186,52 @@ function updateUser(request, response) {
     });
 }
 
+function uploadImage(request, response) {
+    var userId = request.params.id;
+    if (request.files) {
+        var filePath = request.files.image.path;
+        var fileSplit = filePath.split('\\');
+        var fileName = fileSplit[fileSplit.length - 1];
+        var extFile = fileName.split('.');
+        extFile = extFile[extFile.length - 1].toLowerCase();
+
+        if (userId != request.user.sub) {
+            return removeFileFromUploads(reponse, filePath, 'Error: Permisos insuficientes para actualizar los datos del usuario');
+        }
+
+        if (extFile == 'png' || extFile == 'jpg' || extFile == 'jpeg' || extFile == 'gif') {
+            User.findByIdAndUpdate(userId, { image: fileName }, { new: true }, (err, userUpdated) => {
+                if (err) {
+                    return response.status(500).send({ message: 'Error en la petición...' });
+                }
+                if (!userUpdated) {
+                    return response.status(404).send({ message: 'No se ha podido actualizar el usuario...' });
+                }
+                return response.status(200).send({
+                    user: userUpdated
+                });
+            });
+        } else {
+            return removeFileFromUploads(reponse, filePath, 'Error: Extensión de archivo no válida.');
+        }
+
+    } else {
+        return response.status(404).send({ message: 'Error: No se ha subido ningún archivo' });
+    }
+}
+
+function removeFileFromUploads(response, filePath, message) {
+    fs.unlink(filePath, (err) => {
+        response.status(500).send({ message: message });
+    });
+}
+
 module.exports = {
     test,
     saveUser,
     loginUser,
     getUser,
     getUsers,
-    updateUser
+    updateUser,
+    uploadImage
 }
