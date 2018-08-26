@@ -9,4 +9,6 @@ api.get('/test-follow', middleAuth.ensureAuth, followController.test);
 
 api.post('/follow', middleAuth.ensureAuth, followController.saveFollow);
 
+api.delete('/follow/:id', middleAuth.ensureAuth, followController.deleteFollow);
+
 module.exports = api;
