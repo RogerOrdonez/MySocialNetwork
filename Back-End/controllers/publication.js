@@ -81,9 +81,18 @@ function getPublication(request, response) {
     });
 }
 
+function deletePublication(request, response) {
+    var publicationId = request.params.id;
+    Publication.find({ user: request.user.sub, _id: publicationId }).remove((err) => {
+        if (err) return response.status(500).send({ message: 'Error al eliminar publicación' });
+        return response.status(200).send({ message: 'Publicación eliminada' });
+    });
+}
+
 module.exports = {
     test,
     savePublication,
     getPublications,
-    getPublication
+    getPublication,
+    deletePublication
 }
