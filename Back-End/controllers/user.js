@@ -128,14 +128,41 @@ function getUser(request, response) {
             return response.status(404).send({ message: 'Error: el usuario no existe' });
         }
 
-        Follow.findOne({ "user": request.user.sub, "followed": userId }).exec((err, follow) => {
-            if (err) {
-                return response.status(500).send({ message: 'Error en la petición ' });
-            }
-            return response.status(200).send({ usr, follow });
-        });
+        followThisUser(request.user.sub, userId)
+            .then((value) => {
+                usr.password = undefined;
+                return response.status(200).send({ usr, following: value.following, followers: value.followers });
+            })
+            .catch((err) => {
+                return response.status(500).send({ message: 'Error en la petición: ' + err });
+            });
 
     });
+}
+
+async function followThisUser(identityUserId, userId) {
+    try {
+        var following = await Follow.findOne({ user: identityUserId, followed: userId }).exec()
+            .then((following) => {
+                return following;
+            })
+            .catch((err) => {
+                return handleerror(err);
+            });
+        var followers = await Follow.findOne({ user: userId, followed: identityUserId }).exec()
+            .then((followers) => {
+                return followers;
+            })
+            .catch((err) => {
+                return handleerror(err);
+            });
+        return {
+            following,
+            followers
+        }
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 function getUsers(request, response) {
