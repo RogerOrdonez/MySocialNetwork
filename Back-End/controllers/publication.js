@@ -38,7 +38,43 @@ function savePublication(request, response) {
 
 }
 
+function getPublications(request, response) {
+    var userId = request.user.sub;
+    var page = 1;
+    if (request.params.page) {
+        page = request.params.page;
+    }
+    var itemsPerPage = 4;
+    Follow.find({ user: userId }).populate('followed', { '_id': 1 }).exec((err, follows) => {
+        if (err) return response.status(500).send({ message: 'Error al buscar seguimientos' });
+        var followsClean = [];
+
+        follows.forEach((follow) => {
+            followsClean.push(follow.followed);
+        });
+
+        followsClean.push(userId);
+
+        Publication.find({ user: { $in: followsClean } })
+            .sort('-created_at')
+            .populate('user', { 'name': 1, 'surname': 1, 'nick': 1, 'image': 1 })
+            .paginate(page, itemsPerPage, (err, publications, total) => {
+                if (err) return response.status(500).send({ message: 'Error al buscar publicaciones' });
+                if (!publications) return response.status(404).send({ message: 'No se encotró ninguna publicación.' });
+                return response.status(200).send({
+                    totalItems: total,
+                    pages: Math.ceil(total / itemsPerPage),
+                    page: page,
+                    publications
+                });
+            });
+
+    });
+
+}
+
 module.exports = {
     test,
-    savePublication
+    savePublication,
+    getPublications
 }
