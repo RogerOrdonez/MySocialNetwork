@@ -70,11 +70,20 @@ function getPublications(request, response) {
             });
 
     });
+}
 
+function getPublication(request, response) {
+    var publicationId = request.params.id;
+    Publication.findById(publicationId, (err, publication) => {
+        if (err) return response.status(500).send({ message: 'Error al buscar publicación' });
+        if (!publication) return response.status(404).send({ message: 'No se encotró la publicación.' });
+        return response.status(200).send({ publication });
+    });
 }
 
 module.exports = {
     test,
     savePublication,
-    getPublications
+    getPublications,
+    getPublication
 }
