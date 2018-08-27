@@ -7,6 +7,7 @@ var pagination = require('mongoose-pagination');
 var fs = require('fs');
 var path = require('path');
 var Follow = require('../models/follow');
+var Publication = require('../models/publication');
 
 function test(req, res) {
     res.status(200).send({
@@ -332,9 +333,18 @@ async function getCountFollows(userId) {
         .catch(err => {
             return handleerror(err);
         });
+    var publications = await Publication.count({ "user": userId })
+        .then(count => {
+            return count;
+        })
+        .catch(err => {
+            return handleerror(err);
+        });
+
     return {
         following,
-        followers
+        followers,
+        publications
     }
 }
 
