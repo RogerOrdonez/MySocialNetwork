@@ -92,10 +92,27 @@ function getFollowerUsers(request, response) {
     });
 }
 
+function getMyFollows(request, response) {
+    var userId = request.user.sub;
+
+    var find = Follow.find({ user: userId });
+
+    if (request.params.followed) {
+        find = Follow.find({ followed: userId });
+    }
+
+    find.populate('user followed').exec((err, follows) => {
+        if (err) return response.status(500).send({ message: 'Error: No se pudo obtener los follows.' });
+        if (!follows) return response.status(404).send({ message: 'Error: No sigues a ningún usuario.' });
+        response.status(200).send({ follows });
+    });
+}
+
 module.exports = {
     test,
     saveFollow,
     deleteFollow,
     getFollowingUsers,
-    getFollowerUsers
+    getFollowerUsers,
+    getMyFollows
 }
