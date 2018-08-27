@@ -296,6 +296,48 @@ function removeFileFromUploads(response, filePath, message) {
     });
 }
 
+function getCounters(request, response) {
+    var userId = request.user.sub;
+    if (request.params.id) {
+        getCountFollows(request.params.id)
+            .then(value => {
+                response.status(200).send(value);
+            })
+            .catch(err => {
+                return handleerror(err);
+            });
+    } else {
+        getCountFollows(userId)
+            .then(value => {
+                response.status(200).send(value);
+            })
+            .catch(err => {
+                return handleerror(err);
+            });
+    }
+}
+
+async function getCountFollows(userId) {
+    var following = await Follow.count({ "user": userId })
+        .then(count => {
+            return count;
+        })
+        .catch(err => {
+            return handleerror(err);
+        });
+    var followers = await Follow.count({ "followed": userId })
+        .then(count => {
+            return count;
+        })
+        .catch(err => {
+            return handleerror(err);
+        });
+    return {
+        following,
+        followers
+    }
+}
+
 module.exports = {
     test,
     saveUser,
@@ -304,5 +346,6 @@ module.exports = {
     getUsers,
     updateUser,
     uploadImage,
-    getImageFile
+    getImageFile,
+    getCounters
 }
