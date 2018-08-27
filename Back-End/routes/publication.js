@@ -13,4 +13,6 @@ api.get('/publication/:id', middleAuth.ensureAuth, publicationController.getPubl
 
 api.post('/publication', middleAuth.ensureAuth, publicationController.savePublication);
 
+api.delete('/publication/:id', middleAuth.ensureAuth, publicationController.deletePublication);
+
 module.exports = api;
