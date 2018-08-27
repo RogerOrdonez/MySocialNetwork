@@ -89,10 +89,59 @@ function deletePublication(request, response) {
     });
 }
 
+function uploadImage(request, response) {
+    var publicationId = request.params.id;
+    if (request.files) {
+        var filePath = request.files.image.path;
+        var fileSplit = filePath.split('\\');
+        var fileName = fileSplit[fileSplit.length - 1];
+        var extFile = fileName.split('.');
+        extFile = extFile[extFile.length - 1].toLowerCase();
+
+        if (extFile == 'png' || extFile == 'jpg' || extFile == 'jpeg' || extFile == 'gif') {
+            Publication
+                .findOne({ user: request.user.sub, _id: publicationId })
+                .update({ file: fileName }, (err) => {
+                    if (err) {
+                        return response.status(500).send({ message: 'Error en la petición...' });
+                    }
+                    return response.status(200).send({
+                        message: 'Publicación actualizada'
+                    });
+                });
+        } else {
+            return removeFileFromUploads(reponse, filePath, 'Error: Extensión de archivo no válida.');
+        }
+
+    } else {
+        return response.status(404).send({ message: 'Error: No se ha subido ningún archivo' });
+    }
+}
+
+function getImageFile(request, response) {
+    var imageFile = request.params.imageFile;
+    var pathFile = './uploads/publications/' + imageFile;
+    fs.exists(pathFile, (exists) => {
+        if (exists) {
+            response.sendFile(path.resolve(pathFile));
+        } else {
+            response.status(404).send({ message: 'Error: No existe la imagen' });
+        }
+    });
+}
+
+function removeFileFromUploads(response, filePath, message) {
+    fs.unlink(filePath, (err) => {
+        response.status(500).send({ message: message });
+    });
+}
+
 module.exports = {
     test,
     savePublication,
     getPublications,
     getPublication,
-    deletePublication
+    deletePublication,
+    uploadImage,
+    getImageFile
 }
