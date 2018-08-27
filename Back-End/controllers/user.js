@@ -6,6 +6,7 @@ var jwt = require('../services/jwt');
 var pagination = require('mongoose-pagination');
 var fs = require('fs');
 var path = require('path');
+var Follow = require('../models/follow');
 
 function test(req, res) {
     res.status(200).send({
@@ -122,11 +123,17 @@ function getUser(request, response) {
         if (err) {
             return response.status(500).send({ message: 'Error en la petición ' });
         }
+
         if (!usr) {
             return response.status(404).send({ message: 'Error: el usuario no existe' });
         }
 
-        return response.status(200).send(usr);
+        Follow.findOne({ "user": request.user.sub, "followed": userId }).exec((err, follow) => {
+            if (err) {
+                return response.status(500).send({ message: 'Error en la petición ' });
+            }
+            return response.status(200).send({ usr, follow });
+        });
 
     });
 }
