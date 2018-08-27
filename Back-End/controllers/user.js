@@ -72,24 +72,6 @@ function loginUser(request, response) {
     var email = params.email;
     var password = params.password;
 
-    /*User.findOne({ email: email }, 'name surname nick image role email password', (err, usr) => {
-        console.log(usr);
-        if (err) return response.status(500).send({ message: 'Error al consultar en la BD' + err });
-        if (usr) {
-            bcrypt.compare(password, usr.password, (err, check) => {
-                if (err) return response.status(500).send({ message: 'Error al autenticar al usuario 1' + err });
-                if (check) {
-                    //Devolver datos de usuario
-                    response.status(500).send({ user: usr });
-                } else {
-                    return response.status(500).send({ message: 'Error al autenticar al usuario 2' });
-                }
-            });
-        } else {
-            response.status(500).send({ message: 'Error al autenticar al usuario 3' });
-        }
-    });*/
-
     User.findOne({ email: email })
         .exec((err, usr) => {
             console.log(usr);
@@ -188,12 +170,54 @@ function getUsers(request, response) {
             return response.status(404).send({ message: 'Error: Ya no hay más datos que consultar' });
         }
 
-        return response.status(200).send({
-            usrs,
-            total,
-            pages: Math.ceil(total / itemsPerPage)
-        });
+        followUserIds(identityUser)
+            .then(value => {
+                return response.status(200).send({
+                    usrs,
+                    usrsFollowing: value.followingsClean,
+                    usrsFollowers: value.followersClean,
+                    total,
+                    pages: Math.ceil(total / itemsPerPage)
+                });
+            })
+            .catch(err => {
+                return handleerror(err);
+            });
+
     });
+}
+
+async function followUserIds(userId) {
+    var following = await Follow.find({ "user": userId }).select({ '_id': 0, '__v': 0, 'user': 0 }).exec()
+        .then(follows => {
+            return follows
+        })
+        .catch(err => {
+            return handleerror(err);
+        });
+
+    var followers = await Follow.find({ "followed": userId }).select({ '_id': 0, '__v': 0, 'followed': 0 }).exec()
+        .then(follows => {
+            return follows
+        })
+        .catch(err => {
+            return handleerror(err);
+        });
+
+    var followingsClean = [];
+    following.forEach((follow) => {
+        followingsClean.push(follow.followed);
+    });
+
+    var followersClean = [];
+    followers.forEach((follow) => {
+        followersClean.push(follow.user);
+    });
+
+    return {
+        followingsClean,
+        followersClean
+    }
 }
 
 function updateUser(request, response) {
