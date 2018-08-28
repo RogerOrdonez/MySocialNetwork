@@ -7,4 +7,6 @@ var middleAuth = require('../middlewares/authenticated');
 
 api.get('/test-message', middleAuth.ensureAuth, messageController.test);
 
+api.post('/send-message', middleAuth.ensureAuth, messageController.sendMessage);
+
 module.exports = api;
