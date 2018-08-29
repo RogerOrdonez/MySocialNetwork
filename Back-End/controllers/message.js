@@ -28,7 +28,28 @@ function sendMessage(request, response) {
     });
 }
 
+function getReceivedMessages(request, response) {
+    var userId = request.user.sub;
+    var page = 1;
+    if (request.params.page) {
+        page = request.params.page;
+    }
+    var itemsPerPage = 4;
+    Message.find({ receiver: userId })
+        .populate('emitter')
+        .paginate(page, itemsPerPage, (err, messages, total) => {
+            if (err) return response.status(500).send({ message: 'Error en la petición al buscar mensajes' });
+            if (!messages) return response.status(404).send({ message: 'No hay mensajes' });
+            return response.status(200).send({
+                total,
+                pages: Math.ceil(total / itemsPerPage),
+                messages
+            });
+        });
+}
+
 module.exports = {
     test,
-    sendMessage
+    sendMessage,
+    getReceivedMessages
 }
