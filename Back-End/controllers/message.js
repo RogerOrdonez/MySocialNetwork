@@ -79,10 +79,21 @@ function getUnviewedMessages(request, response) {
     });
 }
 
+function setViewedMessages(request, response) {
+    var userId = request.user.sub;
+    Message.update({ receiver: userId, viewed: 'false' }, { viewed: 'true' }, { multi: true }, (err, updatedMessage) => {
+        if (err) return response.status(500).send({ message: 'Error en la petición' });
+        return response.status(200).send({
+            messages: updatedMessage
+        });
+    });
+}
+
 module.exports = {
     test,
     sendMessage,
     getReceivedMessages,
     getSendedMessages,
-    getUnviewedMessages
+    getUnviewedMessages,
+    setViewedMessages
 }
