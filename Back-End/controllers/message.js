@@ -36,7 +36,7 @@ function getReceivedMessages(request, response) {
     }
     var itemsPerPage = 4;
     Message.find({ receiver: userId })
-        .populate('emitter')
+        .populate('emitter', { 'name': 1, 'surname': 1, 'nick': 1, 'image': 1 })
         .paginate(page, itemsPerPage, (err, messages, total) => {
             if (err) return response.status(500).send({ message: 'Error en la petición al buscar mensajes' });
             if (!messages) return response.status(404).send({ message: 'No hay mensajes' });
