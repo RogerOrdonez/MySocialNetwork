@@ -21,6 +21,7 @@ function sendMessage(request, response) {
     message.receiver = params.receiver;
     message.text = params.text;
     message.created_at = moment().unix();
+    message.viewed = 'false';
     message.save((err, messageSended) => {
         if (err) return response.status(500).send({ message: 'Error en la petición al mandar mensaje' });
         if (!messageSended) return response.status(404).send({ message: 'No se mandó ningún mensaje' });
@@ -68,9 +69,20 @@ function getSendedMessages(request, response) {
         });
 }
 
+function getUnviewedMessages(request, response) {
+    var userId = request.user.sub;
+    Message.count({ receriver: userId, viewed: 'false' }).exec((err, count) => {
+        if (err) return response.status(500).send({ message: 'Error en la petición al buscar mensajes sin leer' });
+        response.status(200).send({
+            unviewed: count
+        });
+    });
+}
+
 module.exports = {
     test,
     sendMessage,
     getReceivedMessages,
-    getSendedMessages
+    getSendedMessages,
+    getUnviewedMessages
 }
