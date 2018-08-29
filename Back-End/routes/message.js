@@ -7,6 +7,7 @@ var middleAuth = require('../middlewares/authenticated');
 
 api.get('/test-message', middleAuth.ensureAuth, messageController.test);
 api.get('/my-messages/:page?', middleAuth.ensureAuth, messageController.getReceivedMessages);
+api.get('/messages/:page?', middleAuth.ensureAuth, messageController.getSendedMessages);
 
 api.post('/send-message', middleAuth.ensureAuth, messageController.sendMessage);
 
