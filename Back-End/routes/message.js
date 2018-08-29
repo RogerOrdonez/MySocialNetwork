@@ -10,6 +10,8 @@ api.get('/my-messages/:page?', middleAuth.ensureAuth, messageController.getRecei
 api.get('/messages/:page?', middleAuth.ensureAuth, messageController.getSendedMessages);
 api.get('/unviewed-messages', middleAuth.ensureAuth, messageController.getUnviewedMessages);
 
+api.put('/set-viewed-messages', middleAuth.ensureAuth, messageController.setViewedMessages);
+
 api.post('/send-message', middleAuth.ensureAuth, messageController.sendMessage);
 
 module.exports = api;
