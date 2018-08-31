@@ -1,6 +1,18 @@
 <div class="col-lg-6">
     <h1> Regístrate </h1>
-    <form #registerForm="ngForm" (ngSubmit)="onSubmit()" class="col-lg-10">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="success==false">
+        <strong>Error: </strong> No se pudo registrar tu usuario.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+    </div>
+    <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="success==true">
+        <strong>Usuario </strong> creado correctamente, <a [routerLink]="['/login']">identificate aquí</a>.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+</button>
+    </div>
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" class="col-lg-10">
         <div class="form-group">
             <label for="nameRegister">Nombre</label>
             <input type="text" class="form-control" id="nameRegister" placeholder="Ingresa tu nombre" name="name" #name="ngModel" [(ngModel)]="user.name" required>
