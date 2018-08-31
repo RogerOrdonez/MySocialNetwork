@@ -1,6 +1,6 @@
 <div class="col-lg-6">
-    <h1> Registrate </h1>
-    <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" class="col-lg-10">
+    <h1> Regístrate </h1>
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit()" class="col-lg-10">
         <div class="form-group">
             <label for="nameRegister">Nombre</label>
             <input type="text" class="form-control" id="nameRegister" placeholder="Ingresa tu nombre" name="name" #name="ngModel" [(ngModel)]="user.name" required>
