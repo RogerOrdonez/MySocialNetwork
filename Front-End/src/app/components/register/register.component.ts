@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, Params } from '@angular/router';
+import { User } from '../../models/user.model';
+
 
 @Component({
   selector: 'app-register',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  public user: User;
+
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+     this.user = new User('', '', '', '', '', '', '', '');
+  }
 
   ngOnInit() {
+  }
+
+  onSubmit(registerForm) {
+
   }
 
 }

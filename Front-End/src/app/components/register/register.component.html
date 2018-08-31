@@ -1,3 +1,41 @@
-<p>
-  register works!
-</p>
+<div class="col-lg-6">
+    <h1> Registrate </h1>
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" class="col-lg-10">
+        <div class="form-group">
+            <label for="nameRegister">Nombre</label>
+            <input type="text" class="form-control" id="nameRegister" placeholder="Ingresa tu nombre" name="name" #name="ngModel" [(ngModel)]="user.name" required>
+            <span *ngIf="!name.valid && name.touched">
+               El nombre no puede quedar vacío
+            </span>
+        </div>
+        <div class="form-group">
+            <label for="surnameRegister">Apellidos</label>
+            <input type="text" class="form-control" id="surnameRegister" placeholder="Ingresa tus apellidos" name="surname" #surname="ngModel" [(ngModel)]="user.surname" required>
+            <span *ngIf="!surname.valid && surname.touched">
+               El apellido no puede quedar vacío
+            </span>
+        </div>
+        <div class="form-group">
+            <label for="nickRegister">Nombre de usuario</label>
+            <input type="text" class="form-control" id="nickRegister" placeholder="Ingresa un nombre de usuario" name="nick" #nick="ngModel" [(ngModel)]="user.nick" required>
+            <span *ngIf="!nick.valid && nick.touched">
+               El nombre de usuario no puede quedar vacío
+            </span>
+        </div>
+        <div class="form-group">
+            <label for="emailRegister">Correo electrónico</label>
+            <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" id="emailRegister" placeholder="Ingresa tu correo electrónico" name="email" #email="ngModel" [(ngModel)]="user.email" required>
+            <span *ngIf="!email.valid && email.touched">
+              El correo electrónico no es válido
+            </span>
+        </div>
+        <div class="form-group">
+            <label for="passwordRegister">Contraseña</label>
+            <input type="password" class="form-control" id="passwordRegister" placeholder="Ingresa una contraseña" name="password" #password="ngModel" [(ngModel)]="user.password" required>
+            <span *ngIf="!password.valid && password.touched">
+              La contraseña no puede quedar vacía
+            </span>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!registerForm.form.valid">Registrarme</button>
+    </form>
+</div>
