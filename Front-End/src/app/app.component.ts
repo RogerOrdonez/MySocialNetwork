@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faHome, faNewspaper, faUsers } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  title = 'ngSocial';
+  faHome = faHome;
+  faNewspaper = faNewspaper;
+  faUsers = faUsers;
 }
