@@ -82,13 +82,14 @@ function loginUser(request, response) {
                     if (err) return response.status(500).send({ message: 'Error al autenticar al usuario 1' + err });
                     if (check) {
                         if (params.gettoken) {
+                            console.log('Devolviendo token')
                             return response.status(200).send({
                                 token: jwt.createToken(usr)
                             });
                         } else {
                             //Devolver datos de usuario
                             usr.password = undefined;
-                            response.status(500).send({ user: usr });
+                            response.status(200).send({ user: usr });
                         }
                     } else {
                         return response.status(500).send({ message: 'Error al autenticar al usuario 2' });
