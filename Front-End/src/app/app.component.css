@@ -17,15 +17,20 @@
         margin-left: 0;
     }
     .dropdown-menu {
-        position: relative;
         float: none;
     }
 }
 
-.ml-auto {
-    margin-right: 100px;
-}
-
 .pointer {
     cursor: pointer
+}
+
+.user-image {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+}
+
+.dropdown {
+    margin-top: 10px;
 }

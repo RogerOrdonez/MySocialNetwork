@@ -27,23 +27,24 @@
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <div class="dropdown">
-                    <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      {{ identity.nick }}
-                    </a>
-
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="#">Mi Perfil</a>
-                        <a class="dropdown-item pointer" [routerLink]="['/datos']">Mis Datos</a>
-                        <a class="dropdown-item pointer" (click)="logout()">Cerrar sesión</a>
-                    </div>
+                <div class="nav-link">
+                    <img *ngIf="identity && identity.image" [src]="url + 'get-image-file/' + identity.image" class="rounded-circle user-image">
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" [hidden]="true">
-                    <fa-icon [icon]="faUsers"></fa-icon>
-                    Imagen Usuario
-                </a>
+                <div class="btn-group">
+                    <div class="dropdown">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      {{ identity.nick }}
+                    </a>
+
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">Mi Perfil</a>
+                            <a class="dropdown-item pointer" [routerLink]="['/datos']">Mis Datos</a>
+                            <a class="dropdown-item pointer" (click)="logout()">Cerrar sesión</a>
+                        </div>
+                    </div>
+                </div>
             </li>
         </ul>
     </div>

@@ -2,6 +2,7 @@ import { Component, OnInit, DoCheck } from '@angular/core';
 import { faHome, faNewspaper, faUsers, faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { UserService} from './services/user.service';
 import {  RouterLinkActive, Router, ActivatedRoute } from '@angular/router';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -16,8 +17,11 @@ export class AppComponent implements OnInit, DoCheck{
   public faSignInAlt = faSignInAlt;
   public faUserPlus = faUserPlus;
   public identity;
+  public url: string;
 
-  constructor( private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router) {}
+  constructor( private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router) {
+    this.url = environment.backendUrl;
+  }
 
   ngOnInit() {
      this.identity = this.userService.getIdentity();
