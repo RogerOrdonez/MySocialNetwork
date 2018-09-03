@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
               this.success = false;
             } else {
               localStorage.setItem('token', JSON.stringify(this.token));
+              this.getCounters();
               this.success = true;
             }
        },
@@ -57,6 +58,17 @@ export class LoginComponent implements OnInit {
           console.log(<any>error);
           this.success = false;
         });
+  }
+
+  getCounters() {
+    this.userService.getCounters()
+                    .subscribe((response: any) => {
+                       localStorage.setItem('stats',JSON.stringify(response));
+                       this.success = true;
+                    },
+                    error => {
+                      console.log(<any>error);
+                    });
   }
 
 }
