@@ -80,4 +80,11 @@ export class UserService {
     }
   }
 
+  updateUser(user: User){
+    const params = JSON.stringify(user);
+    const headers = new HttpHeaders().set('Content-Type', 'application/json')
+                                     .set('Authorization', this.getToken());
+    return this.http.put(this.url + 'update-user/' + user._id, params, {headers: headers});
+  }
+
 }
