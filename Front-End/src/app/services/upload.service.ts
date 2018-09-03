@@ -10,7 +10,7 @@ export class UploadService {
     this.url = environment.backendUrl;
   }
 
-  makeFileRequest(url: string, params: Array<string>, files: Array<File>, token: string) {
+  makeFileRequest(url: string, params: Array<string>, files: Array<File>, token: string, name: string) {
     return new Promise(function(resolve, reject) {
       const formData = new FormData();
       const xhr = new XMLHttpRequest();
@@ -18,7 +18,7 @@ export class UploadService {
         formData.append(name, files[i], files[i].name);
       }
       xhr.onreadystatechange = function() {
-        if (xhr.status === 4) {
+        if (xhr.readyState === 4) {
           if (xhr.status === 200) {
             resolve(JSON.parse(xhr.response));
           } else {
