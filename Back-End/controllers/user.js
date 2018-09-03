@@ -233,17 +233,44 @@ function updateUser(request, response) {
         return response.status(500).send({ message: 'Error: Permisos insuficientes para actualizar los datos del usuario' });
     }
 
-    User.findByIdAndUpdate(userId, update, { new: true }, (err, usrUpdated) => {
+    // Validar si el correo ya está en uso por otro usuario
+    User.findOne({
+        email: update.email.toLowerCase()
+    }).exec((err, user) => {
+
+        if (user && user._id != userId) return response.status(404).send({ message: 'La nueva dirección de correo electrónico no está disponible' });
+
         if (err) {
             return response.status(500).send({ message: 'Error en la petición...' });
         }
-        if (!usrUpdated) {
-            return response.status(404).send({ message: 'No se ha podido actualizar el usuario...' });
-        }
-        return response.status(200).send({
-            user: usrUpdated
+
+        // Validar si el nick ya está en uso por otro usuario
+        User.findOne({
+            nick: update.nick.toLowerCase()
+        }).exec((err, user) => {
+
+            if (user && user._id != userId) return response.status(404).send({ message: 'El nuevo nombre de usuario no está disponible' });
+
+            if (err) {
+                return response.status(500).send({ message: 'Error en la petición...' });
+            }
+
+            User.findByIdAndUpdate(userId, update, { new: true }, (err, usrUpdated) => {
+                if (err) {
+                    return response.status(500).send({ message: 'Error en la petición...' });
+                }
+                if (!usrUpdated) {
+                    return response.status(404).send({ message: 'No se ha podido actualizar el usuario...' });
+                }
+                return response.status(200).send({
+                    user: usrUpdated
+                });
+            });
+
         });
+
     });
+
 }
 
 function uploadImage(request, response) {
