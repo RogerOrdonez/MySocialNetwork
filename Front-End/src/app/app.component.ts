@@ -1,7 +1,7 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { faHome, faNewspaper, faUsers, faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { UserService} from './services/user.service';
-import {  RouterLinkActive } from '@angular/router';
+import {  RouterLinkActive, Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +17,7 @@ export class AppComponent implements OnInit, DoCheck{
   public faUserPlus = faUserPlus;
   public identity;
 
-  constructor( private userService: UserService) {}
+  constructor( private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
      this.identity = this.userService.getIdentity();
@@ -25,6 +25,12 @@ export class AppComponent implements OnInit, DoCheck{
 
   ngDoCheck() {
      this.identity = this.userService.getIdentity();
+  }
+
+  logout() {
+    localStorage.clear();
+    this.identity = null;
+    this.router.navigate(['/']);
   }
 
 }

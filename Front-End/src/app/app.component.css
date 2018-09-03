@@ -25,3 +25,7 @@
 .ml-auto {
     margin-right: 100px;
 }
+
+.pointer {
+    cursor: pointer
+}

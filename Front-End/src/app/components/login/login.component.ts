@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
               this.success = true;
               localStorage.setItem('identity', JSON.stringify(this.identity));
               this.getToken();
+              this.router.navigate(['/']);
             }
             loginForm.reset();
        },
