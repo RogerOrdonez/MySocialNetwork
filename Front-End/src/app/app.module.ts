@@ -12,6 +12,7 @@ import { UserService} from './services/user.service';
 import { HomeComponent } from './components/home/home.component';
 import { UserComponent } from './components/user/user.component';
 import { PersonComponent } from './components/person/person.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { PersonComponent } from './components/person/person.component';
     RegisterComponent,
     HomeComponent,
     UserComponent,
-    PersonComponent
+    PersonComponent,
+    TimelineComponent
   ],
   imports: [
     BrowserModule,
