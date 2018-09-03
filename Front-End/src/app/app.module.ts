@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app.routing';
 import { UserService} from './services/user.service';
 import { HomeComponent } from './components/home/home.component';
 import { UserComponent } from './components/user/user.component';
+import { PersonComponent } from './components/person/person.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { UserComponent } from './components/user/user.component';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    UserComponent
+    UserComponent,
+    PersonComponent
   ],
   imports: [
     BrowserModule,
