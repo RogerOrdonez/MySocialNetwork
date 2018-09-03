@@ -283,7 +283,7 @@ function uploadImage(request, response) {
         extFile = extFile[extFile.length - 1].toLowerCase();
 
         if (userId != request.user.sub) {
-            return removeFileFromUploads(reponse, filePath, 'Error: Permisos insuficientes para actualizar los datos del usuario');
+            return removeFileFromUploads(response, filePath, 'Error: Permisos insuficientes para actualizar los datos del usuario');
         }
 
         if (extFile == 'png' || extFile == 'jpg' || extFile == 'jpeg' || extFile == 'gif') {
