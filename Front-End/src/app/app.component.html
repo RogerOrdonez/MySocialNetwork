@@ -13,13 +13,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" [routerLink]="['/timeline']" routerLinkActive="active active-border">
                     <fa-icon [icon]="faNewspaper"></fa-icon>
                     Timeline
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" [routerLink]="['/people']" routerLinkActive="active active-border">
                     <fa-icon [icon]="faUsers"></fa-icon>
                     Gente
                 </a>
@@ -33,7 +33,7 @@
                 </a>
             </li>
             <li class="nav-item user-info">
-                <a class="btn " href="#" role="button">
+                <a class="btn" role="button">
                     {{ identity.nick }}
                 </a>
             </li>
@@ -41,12 +41,12 @@
             <li class="nav-item">
                 <div class="btn-group">
                     <div class="dropdown">
-                        <a class="btn dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="btn dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#">Mi Perfil</a>
+                            <a class="dropdown-item pointer">Mi Perfil</a>
                             <a class="dropdown-item pointer" [routerLink]="['/datos']">Mis Datos</a>
                             <a class="dropdown-item pointer" (click)="logout()">Cerrar sesión</a>
                         </div>
