@@ -10,6 +10,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { AppRoutingModule } from './app.routing';
 import { UserService} from './services/user.service';
 import { HomeComponent } from './components/home/home.component';
+import { UserComponent } from './components/user/user.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { HomeComponent } from './components/home/home.component';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
