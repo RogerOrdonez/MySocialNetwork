@@ -34,7 +34,7 @@
             </li>
             <li class="nav-item user-info">
                 <a class="btn" role="button">
-                    {{ identity.nick }}
+                   {{ identity.nick }}
                 </a>
             </li>
 
@@ -60,13 +60,13 @@
     <div class="collapse navbar-collapse navbar-right" id="navbarSupportedContent" *ngIf="!identity">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active active-border">
                     <fa-icon [icon]="faSignInAlt"></fa-icon>
                     Iniciar Sesión
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/register']" routerLinkActive="active">
+                <a class="nav-link" [routerLink]="['/register']" routerLinkActive="active active-border">
                     <fa-icon [icon]="faUserPlus"></fa-icon>
                     Registrarme
                 </a>
