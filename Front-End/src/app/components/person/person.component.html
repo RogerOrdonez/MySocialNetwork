@@ -1,3 +1,30 @@
-<p>
-  person works!
-</p>
+<div class="col-lg-12 outlet-containter">
+    <h1>Personas</h1>
+    <div class="people">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 people" *ngFor="let person of users">
+                    <div class="card">
+                        <img class="card-img-top img-fluid" *ngIf="person.image" [src]="url + 'get-image-file/' + person.image">
+                        <img class="card-img-top img-fluid" *ngIf="!person.image" src="assets/no_image.png">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ person.name + ' ' + person.surname }}</h5>
+                            <p class="card-text"> @{{ person.nick }}</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="pagination-control">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" [ngClass]="{'disabled':page <= 1}">
+                    <a class="page-link" [routerLink]="['/people', prevPage]" tabindex="-1" [routerLink]="['/people', prevPage]">Anterior</a>
+                </li>
+                <li class="page-item" [ngClass]="{'disabled':page === pages}">
+                    <a class="page-link" tabindex="-1" [routerLink]="['/people', nextPage]">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
