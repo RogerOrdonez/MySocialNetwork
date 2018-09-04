@@ -1,4 +1,4 @@
-<div class="col-lg-6">
+<div class="col-lg-6 outlet-containter">
     <h1> Mis Datos </h1>
     <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="success==false">
         <strong>Error: </strong> No se pudo actualizar tus datos.
@@ -42,12 +42,12 @@
           </span>
         </div>
         <div *ngIf="user.image">
-            <img [src] = "url + 'get-image-file/' + user.image" class="img-fluid img-thumbnail img-user">
+            <img [src]="url + 'get-image-file/' + user.image" class="img-fluid img-thumbnail img-user">
         </div>
         <div class="form-group">
-          <label for="emailEdit">Sube tu foto</label>
-          <input type="file" class="form-control" id="imageEdit" placeholder="Subir imagen" name="image" (change)="onFileChange($event)">          
-      </div>
+            <label for="emailEdit">Sube tu foto</label>
+            <input type="file" class="form-control" id="imageEdit" placeholder="Subir imagen" name="image" (change)="onFileChange($event)">
+        </div>
         <button type="submit" class="btn btn-primary" [disabled]="!editForm.form.valid">Actualizar</button>
     </form>
 </div>
