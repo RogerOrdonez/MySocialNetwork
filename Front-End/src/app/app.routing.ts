@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'datos', component: UserComponent },
   { path: 'timeline', component: TimelineComponent },
   { path: 'people', component: PersonComponent },
+  { path: 'people/:page', component: PersonComponent },
   { path: '**', component: HomeComponent },
 ];
 
