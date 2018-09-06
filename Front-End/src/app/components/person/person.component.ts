@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { environment } from '../../../environments/environment';
+import { faUserMinus, faUserPlus, faUserCheck, faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-person',
@@ -19,7 +20,15 @@ export class PersonComponent implements OnInit {
   public total;
   public pages = 1;
   public users: Array<User>;
+  public follows;
+  public followers;
   public url: string;
+  public faUserMinus = faUserMinus;
+  public faUserPlus = faUserPlus;
+  public faUserCheck = faUserCheck;
+  public faUser = faUser;
+  public unfollowUserHover;
+  public followUserHover = false;
 
   constructor(
     private route: Router,
@@ -70,6 +79,8 @@ export class PersonComponent implements OnInit {
                           this.total = response.total;
                           this.pages = response.pages;
                           this.users = response.usrs;
+                          this.follows = response.usrsFollowing;
+                          this.followers = response.usrsFollowers;
                           if (page > this.pages ) {
                             this.route.navigate(['/']);
                           }
@@ -86,9 +97,13 @@ export class PersonComponent implements OnInit {
                     );
   }
 
-  test() {
-    console.log(this.page);
-    console.log(this.pages);
+  changeUnfollowHover(personId) {
+    this.followUserHover = !this.followUserHover;
+    if (!this.followUserHover) {
+      this.unfollowUserHover = null;
+    } else {
+      this.unfollowUserHover = personId;
+    }
   }
 
 }

@@ -10,7 +10,7 @@ import { environment } from '../environments/environment';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, DoCheck{
-  public title = 'ngSocial';
+  public title = 'ngFollow';
   public faHome = faHome;
   public faNewspaper = faNewspaper;
   public faUsers = faUsers;

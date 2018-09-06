@@ -17,3 +17,11 @@
 .pagination-control {
     margin-top: 20px;
 }
+
+.follow {
+    margin-top: 5px;
+}
+
+.yourself {
+    cursor: none;
+}
