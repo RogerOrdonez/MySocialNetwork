@@ -13,16 +13,25 @@ export class SidebarComponent implements OnInit {
   public token;
   public stats;
   public url;
-  public succes;
+  public success;
   constructor(private userService: UserService) {
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
-    this.stats = this.userService.getStats();
     this.url = environment.backendUrl;
   }
 
   ngOnInit() {
     console.log('Componente Sidebar cargado');
+    this.stats = this.userService.getStats();
+    this.userService.getCounters()
+                    .subscribe((response: any) => {
+                       localStorage.setItem('stats', JSON.stringify(response));
+                       this.stats = this.userService.getStats();
+                       this.success = true;
+                    },
+                    error => {
+                      console.log(<any>error);
+                    });
   }
 
 }
