@@ -116,8 +116,9 @@ export class PersonComponent implements OnInit {
                         if (!response) {
                           this.success = false;
                         } else {
-                          this.success = true;
                           this.follows.push(followed);
+                          this.changeUnfollowHover(followed);
+                          this.success = true;
                         }
                       },
                       error => {
@@ -135,6 +136,7 @@ export class PersonComponent implements OnInit {
                           if (unfollowed >= 0) {
                             this.follows.splice(unfollowed, 1);
                           }
+                          this.changeUnfollowHover(followed);
                           this.success = true;
                         }
                       },
