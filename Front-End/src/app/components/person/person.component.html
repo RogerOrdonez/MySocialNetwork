@@ -1,57 +1,56 @@
-<div class="col-lg-9 outlet-containter">
-    <h1>Personas</h1>
-    <div class="people">
-        <div class="container">
-            <div class="row">
-                <div class="card-group col-sm-3 people" *ngFor="let person of users">
-                    <div class="card">
-                        <img class="card-img-top img-fluid" *ngIf="person.image" [src]="url + 'get-image-file/' + person.image">
-                        <img class="card-img-top img-fluid" *ngIf="!person.image" src="assets/no_image.png">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ person.name + ' ' + person.surname }}</h5>
-                            <p class="card-text"> @{{ person.nick }}</p>
-                        </div>
-                        <div class="card-footer">
-                            <!-- Seguir y dejar de seguir -->
-                            <p class="text-center" *ngIf="followers.indexOf(person._id) >= 0 && person._id != identity._id">
-                                <small class="text-muted">Este usuario te sigue</small>
-                            </p>
-                            <p *ngIf="followers.indexOf(person._id) < 0">
-                                <small class="text-muted">&nbsp;</small>
-                            </p>
-                            <button type="button" class="btn btn-outline-primary btn-sm btn-block follow" *ngIf="follows.indexOf(person._id) < 0 && person._id != identity._id" (click)="followUser(person._id)">
-                                <fa-icon [icon]="faUserPlus"></fa-icon>
-                                Seguir
-                            </button>
-                            <button type="button" class="btn btn-primary btn-sm btn-block follow" *ngIf="follows.indexOf(person._id) >= 0 && person._id != unfollowUserHover" (mouseenter)="changeUnfollowHover(person._id)">
-                                    <fa-icon [icon]="faUserCheck"></fa-icon>
-                                    Siguiendo
-                            </button>
-                            <button type="button" class="btn btn-danger btn-sm btn-block follow" *ngIf="follows.indexOf(person._id) >= 0 && person._id == unfollowUserHover" (mouseleave)="changeUnfollowHover(person._id)" (click)="unfollowUser(person._id)">
-                                <fa-icon [icon]="faUserMinus"></fa-icon>
-                                Dejar de Seguir
-                            </button>
-                            <h4>
-                                <small class="badge badge-dark btn-block follow" *ngIf="person._id == identity._id">
-                                        <fa-icon [icon]="faUser"></fa-icon>
-                                        Tú
-                                </small>
-                            </h4>
-                        </div>
+<div class="container-fluid people">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="card-group col-sm-3 people" *ngFor="let person of users">
+                        <div class="card">
+                            <img class="card-img-top img-fluid" *ngIf="person.image" [src]="url + 'get-image-file/' + person.image">
+                            <img class="card-img-top img-fluid" *ngIf="!person.image" src="assets/no_image.jpg">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ person.name + ' ' + person.surname }}</h5>
+                                <p class="text-muted"> @{{ person.nick }}</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <small class="text-muted" *ngIf="followers.indexOf(person._id) >= 0 && person._id != identity._id">Este usuario te sigue</small>
+                                <small class="text-muted" *ngIf="followers.indexOf(person._id) < 0">&nbsp;</small>
+                                <button type="button" class="btn btn-outline-primary btn-sm btn-block follow" *ngIf="follows.indexOf(person._id) < 0 && person._id != identity._id" (click)="followUser(person._id)">
+                                                <fa-icon [icon]="faUserPlus"></fa-icon>
+                                                Seguir
+                                            </button>
+                                <button type="button" class="btn btn-primary btn-sm btn-block follow" *ngIf="follows.indexOf(person._id) >= 0 && person._id != unfollowUserHover" (mouseenter)="changeUnfollowHover(person._id)">
+                                                    <fa-icon [icon]="faUserCheck"></fa-icon>
+                                                    Siguiendo
+                                            </button>
+                                <button type="button" class="btn btn-danger btn-sm btn-block follow" *ngIf="follows.indexOf(person._id) >= 0 && person._id == unfollowUserHover" (mouseleave)="changeUnfollowHover(person._id)" (click)="unfollowUser(person._id)">
+                                                <fa-icon [icon]="faUserMinus"></fa-icon>
+                                                Dejar de Seguir
+                                            </button>
+                                <h4>
+                                    <small class="badge badge-dark btn-block follow" *ngIf="person._id == identity._id">
+                                                        <fa-icon [icon]="faUser"></fa-icon>
+                                                        Tú
+                                                </small>
+                                </h4>
+                            </div>
 
+                        </div>
                     </div>
+                    <nav class="col-sm-12 pagination-control">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" [ngClass]="{'disabled': (page <= 1 || !page)}">
+                                <a class="page-link" [routerLink]="['/people', prevPage]" tabindex="-1" [routerLink]="['/people', prevPage]">Anterior</a>
+                            </li>
+                            <li class="page-item" [ngClass]="{'disabled':page === pages}">
+                                <a class="page-link" tabindex="-1" [routerLink]="['/people', nextPage]">Siguiente</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
+            <!--<div class="col-sm-3 people">
+                <app-sidebar></app-sidebar>
+            </div>-->
         </div>
-
-        <nav class="pagination-control">
-            <ul class="pagination justify-content-center">
-                <li class="page-item" [ngClass]="{'disabled': (page <= 1 || !page)}">
-                    <a class="page-link" [routerLink]="['/people', prevPage]" tabindex="-1" [routerLink]="['/people', prevPage]">Anterior</a>
-                </li>
-                <li class="page-item" [ngClass]="{'disabled':page === pages}">
-                    <a class="page-link" tabindex="-1" [routerLink]="['/people', nextPage]">Siguiente</a>
-                </li>
-            </ul>
-        </nav>
     </div>
+</div>
