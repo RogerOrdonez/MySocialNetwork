@@ -9,7 +9,7 @@ import { Follow } from '../models/follow.model';
 })
 export class FollowService {
   public url: string;
-  constructor(public httpClient: HttpClient, public httpHeaders: HttpHeaders) {
+  constructor(public httpClient: HttpClient) {
     this.url = environment.backendUrl;
   }
 

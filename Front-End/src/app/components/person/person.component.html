@@ -19,7 +19,7 @@
                             <p *ngIf="followers.indexOf(person._id) < 0">
                                 <small class="text-muted">&nbsp;</small>
                             </p>
-                            <button type="button" class="btn btn-outline-primary btn-sm btn-block follow" *ngIf="follows.indexOf(person._id) < 0 && person._id != identity._id">
+                            <button type="button" class="btn btn-outline-primary btn-sm btn-block follow" *ngIf="follows.indexOf(person._id) < 0 && person._id != identity._id" (click)="followUser(person._id)">
                                 <fa-icon [icon]="faUserPlus"></fa-icon>
                                 Seguir
                             </button>

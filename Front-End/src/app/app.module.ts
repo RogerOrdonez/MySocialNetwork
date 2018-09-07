@@ -13,6 +13,7 @@ import { HomeComponent } from './components/home/home.component';
 import { UserComponent } from './components/user/user.component';
 import { PersonComponent } from './components/person/person.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
+import { FollowService } from './services/follow.service';
 
 
 @NgModule({
@@ -32,7 +33,9 @@ import { TimelineComponent } from './components/timeline/timeline.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [UserService],
+  providers: [UserService,
+              FollowService
+             ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

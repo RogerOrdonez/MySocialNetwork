@@ -4,6 +4,8 @@ import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { environment } from '../../../environments/environment';
 import { faUserMinus, faUserPlus, faUserCheck, faUser } from '@fortawesome/free-solid-svg-icons';
+import { FollowService } from '../../services/follow.service';
+import { Follow } from '../../models/follow.model';
 
 @Component({
   selector: 'app-person',
@@ -33,7 +35,8 @@ export class PersonComponent implements OnInit {
   constructor(
     private route: Router,
     private activatedRoute: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private followService: FollowService
   ) {
     this.identity = userService.getIdentity();
     this.token = userService.getToken();
@@ -104,6 +107,22 @@ export class PersonComponent implements OnInit {
     } else {
       this.unfollowUserHover = personId;
     }
+  }
+
+  followUser(followed) {
+    const follow = new Follow('', this.identity._id, followed);
+    this.followService.follow(this.token, follow)
+                      .subscribe( response => {
+                        if (!response) {
+                          this.success = false;
+                        } else {
+                          this.success = true;
+                          this.follows.push(followed);
+                        }
+                      },
+                      error => {
+                        this.success = false;
+                      });
   }
 
 }
