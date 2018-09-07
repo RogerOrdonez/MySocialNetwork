@@ -27,7 +27,7 @@
                                     <fa-icon [icon]="faUserCheck"></fa-icon>
                                     Siguiendo
                             </button>
-                            <button type="button" class="btn btn-danger btn-sm btn-block follow" *ngIf="follows.indexOf(person._id) >= 0 && person._id == unfollowUserHover" (mouseleave)="changeUnfollowHover(person._id)">
+                            <button type="button" class="btn btn-danger btn-sm btn-block follow" *ngIf="follows.indexOf(person._id) >= 0 && person._id == unfollowUserHover" (mouseleave)="changeUnfollowHover(person._id)" (click)="unfollowUser(person._id)">
                                 <fa-icon [icon]="faUserMinus"></fa-icon>
                                 Dejar de Seguir
                             </button>

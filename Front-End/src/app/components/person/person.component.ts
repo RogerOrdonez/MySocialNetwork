@@ -125,4 +125,22 @@ export class PersonComponent implements OnInit {
                       });
   }
 
+  unfollowUser(followed) {
+    this.followService.unFollow(this.token, followed)
+                      .subscribe( response => {
+                        if (!response) {
+                          this.success = false;
+                        } else {
+                          const unfollowed = this.follows.indexOf(followed);
+                          if (unfollowed >= 0) {
+                            this.follows.splice(unfollowed, 1);
+                          }
+                          this.success = true;
+                        }
+                      },
+                      error => {
+                        this.success = false;
+                      });
+  }
+
 }
