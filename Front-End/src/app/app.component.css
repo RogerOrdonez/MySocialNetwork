@@ -51,7 +51,7 @@
     border-bottom-color: #f8f9fa;
     padding: 15px 25px 15px !important;
     display: inline-block;
-    margin-bottom: -9px;
+    margin-bottom: -8px;
 }
 
 .nav-link:hover {
@@ -93,4 +93,5 @@
 .dropdown-toggle {
     color: rgba(0, 0, 0, .9);
     font-size: large;
+    border: none;
 }
