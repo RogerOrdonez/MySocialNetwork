@@ -1,0 +1,33 @@
+<div class="card my-3">
+    <div class="container-fluid">
+        <div class="row bg-light py-5">
+            <div class="col-8 mx-auto">
+                <img class="rounded-circle img-fluid" [src]="url + 'get-image-file/' + identity.image" *ngIf="identity.image">
+                <img class="rounded-circle img-fluid" src="assets/no_image.jpg" *ngIf="!identity.image">
+            </div>
+            <div class="col-12 text-center">
+                <h3>{{ identity.name + ' ' + identity.surname}} </h3>
+                <span class="text-muted">@{{ identity.nick }}</span>
+            </div>
+        </div>
+        <!--<div class="row mb-2">
+            <div class="col-12 py-3">
+                <p>BIO</p>
+            </div>
+        </div> Aqui iría la BIO-->
+        <div class="row mb-3 justify-content-center">
+            <div class="col-sm text-center">
+                <i class="fa fa-star"></i> Posts
+                <h6>{{ stats.publications }}</h6>
+            </div>
+            <div class="col-sm text-center">
+                <i class="fa fa-heart"></i> Siguiendo
+                <h6>{{ stats.following }}</h6>
+            </div>
+            <div class="col-sm text-center">
+                <i class="fa fa-file-o"></i> Seguidores
+                <h6>{{ stats.followers }}</h6>
+            </div>
+        </div>
+    </div>
+</div>

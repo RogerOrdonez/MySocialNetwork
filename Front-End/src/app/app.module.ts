@@ -14,6 +14,7 @@ import { UserComponent } from './components/user/user.component';
 import { PersonComponent } from './components/person/person.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { FollowService } from './services/follow.service';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { FollowService } from './services/follow.service';
     HomeComponent,
     UserComponent,
     PersonComponent,
-    TimelineComponent
+    TimelineComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
