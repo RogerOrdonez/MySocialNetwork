@@ -32,7 +32,7 @@
                     <div class="col-lg-11 bg-light publication-content testing">
                         <p>
                             <strong>{{ publication.user.name + ' ' + publication.user.surname}}</strong>
-                            <small> @{{ publication.user.nick }}</small>
+                            <small> @{{ publication.user.nick }}</small> <small class="publication-time"> {{ (publication.created_at | amFromUnix) | amLocale:'es' | amTimeAgo }} </small>
                         </p>
                         <p>
                             {{ publication.text }}

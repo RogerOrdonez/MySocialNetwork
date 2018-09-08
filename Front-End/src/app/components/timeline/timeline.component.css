@@ -103,3 +103,11 @@ p {
     padding-right: 0px;
     padding-left: 0px;
 }
+
+.publication-time {
+    margin-left: 3px;
+}
+
+.publication-time::before {
+    content: "\00b7";
+}
