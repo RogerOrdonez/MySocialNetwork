@@ -44,7 +44,7 @@ function getPublications(request, response) {
     if (request.params.page) {
         page = request.params.page;
     }
-    var itemsPerPage = 4;
+    var itemsPerPage = 10;
     Follow.find({ user: userId }).populate('followed', { '_id': 1 }).exec((err, follows) => {
         if (err) return response.status(500).send({ message: 'Error al buscar seguimientos' });
         var followsClean = [];
@@ -65,6 +65,7 @@ function getPublications(request, response) {
                     totalItems: total,
                     pages: Math.ceil(total / itemsPerPage),
                     page: page,
+                    itemsPerPage: itemsPerPage,
                     publications
                 });
             });
