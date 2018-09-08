@@ -3,8 +3,24 @@
         <div class="col-sm-3">
             <app-sidebar></app-sidebar>
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-6 timeline">
+            <div class="col-lg-12 bg-light publication-box">
+                <form #newPublication="ngForm" (submit)="onSubmit()">
+                    <div class="col-lg-12">
+                        <textarea class="form-control form-control-sm" name="text" rows="10" #text="ngModel" [(ngModel)]="publication.text" required placeholder="Crea una publicación" rows="3"></textarea>
+                    </div>
 
+
+                    <label for="upload-photo" class="nav-link text-primary" [routerLink]="['/timeline']" routerLinkActive="active active-border">
+                                <fa-icon [icon]="faImage"></fa-icon>
+                                Agrega una imagen
+                            </label>
+                    <input type="file" name="photo" id="upload-photo" />
+                    <div class="col-lg-12 ml-auto">
+                        <input type="submit" value="Publicar" class="btn btn-primary post float-right" [disabled]="!newPublication.valid">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
