@@ -16,6 +16,7 @@ import { TimelineComponent } from './components/timeline/timeline.component';
 import { FollowService } from './services/follow.service';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { PublicationService } from './services/publication.service';
+import { MomentModule } from 'angular2-moment';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { PublicationService } from './services/publication.service';
     FontAwesomeModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MomentModule
   ],
   providers: [UserService,
               FollowService,
