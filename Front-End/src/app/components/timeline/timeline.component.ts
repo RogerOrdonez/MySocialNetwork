@@ -19,16 +19,24 @@ export class TimelineComponent implements OnInit {
   public success;
   public publication: Publication;
   public faImage = faImage;
+  public page;
+  public pages;
+  public publications: Array<Publication>;
+  public total;
+  public itemsPerPage;
+  public noMore = false;
 
-  constructor(private publicationService: PublicationService, private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private publicationService: PublicationService, private userService: UserService, private router: Router) {
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
     this.url = environment.backendUrl;
-    this.publication = new Publication('', '', '', '', '');
+    this.publication = new Publication('', '', '', '', null);
+    this.page = 1;
   }
 
   ngOnInit() {
     console.log('Componente Timeline cargado');
+    this.getPublications(this.page);
   }
 
   onSubmit(newPublication) {
@@ -50,5 +58,55 @@ export class TimelineComponent implements OnInit {
                              console.log(<any> error);
                            });
   }
+
+  getPublications(page, adding = false) {
+    this.publicationService.getPublications(this.token, page)
+                           .subscribe((response: any) => {
+                             if (response.publications) {
+                               this.total = response.totalItems;
+                               this.pages = response.pages;
+                               this.itemsPerPage = response.itemsPerPage;
+                               if (!adding) {
+                                  this.publications = response.publications;
+                                  if (this.publications.length === (this.total)) {
+                                      this.noMore = true;
+                                  }
+                               } else {
+                                 const publicationsCopy  = this.publications;
+                                 const newPublications = response.publications;
+                                 this.publications = publicationsCopy.concat(newPublications);
+                                 console.log(this.publications.length);
+                                 console.log(this.total);
+                                 if (this.publications.length === (this.total)) {
+                                   this.noMore = true;
+                                 } else {
+                                   this.page += 1;
+                                   this.noMore = false;
+                                 }
+                               }
+                               if (page > this.pages && this.pages > 0) {
+                                 this.router.navigate(['/home']);
+                               }
+                               this.success = true;
+                             } else {
+                               this.success = false;
+                             }
+                           },
+                           error => {
+                             this.success = false;
+                             console.log(<any> error);
+                           });
+  }
+
+  viewMore() {
+    if (this.publications.length === (this.total)) {
+      this.noMore = true;
+    } else {
+      this.page += 1;
+    }
+    this.getPublications(this.page, true);
+    // window.scrollTo(0, 0); Ir hasta arriba
+  }
+
 
 }

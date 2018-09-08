@@ -20,4 +20,17 @@ export class PublicationService {
       return this.http.post(this.url + 'publication', params, {headers: headers});
    }
 
+   getPublications(token, page = 1) {
+      const headers = new HttpHeaders().set('Content-Type', 'application/json')
+                                       .set('Authorization', token);
+      return this.http.get(this.url + 'publications/' + page, {headers: headers});
+   }
+
+   deletePublication(token, publicationId) {
+      const headers = new HttpHeaders().set('Content-Type', 'application/json')
+                                       .set('Authorization', token);
+      return this.http.delete(this.url + 'publication/' + publicationId, {headers: headers});
+   }
+
+
 }
