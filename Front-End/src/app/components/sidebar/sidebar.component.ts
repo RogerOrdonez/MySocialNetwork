@@ -21,7 +21,6 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Componente Sidebar cargado');
     this.stats = this.userService.getStats();
     this.userService.getCounters()
                     .subscribe((response: any) => {

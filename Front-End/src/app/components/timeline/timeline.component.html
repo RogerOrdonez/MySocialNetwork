@@ -23,8 +23,8 @@
                 </form>
             </div>
             <!-- Publicaciones -->
-            <div class="publication col-lg-12 bg-light testing" *ngFor="let publication of publications">
-                <div class="row publication-row testing">
+            <div class="publication col-lg-12 bg-light" *ngFor="let publication of publications">
+                <div class="row publication-row">
                     <div class="col-lg-1 publication-user-image bg-light">
                         <img class="img-fluid" *ngIf="publication.user.image" [src]="url + 'get-image-file/' + publication.user.image">
                         <img class="img-fluid" *ngIf="!publication.user.image" src="assets/no_image.jpg">
@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-12 bg-light testing see-more">
+            <div class="col-lg-12 bg-light see-more">
                 <button class="btn btn-primary btn-sm btn-block" (click)="viewMore()" *ngIf="!noMore">
                     Ver más publicaciones
                 </button>

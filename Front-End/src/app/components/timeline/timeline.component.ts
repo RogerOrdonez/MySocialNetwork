@@ -35,13 +35,11 @@ export class TimelineComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Componente Timeline cargado');
     this.getPublications(this.page);
   }
 
   onSubmit(newPublication) {
     this.publication.user = this.identity._id;
-    console.log(this.publication);
     this.publicationService.addPublication(this.token, this.publication)
                            .subscribe((response: any) => {
                              if(response.publication) {
@@ -75,8 +73,6 @@ export class TimelineComponent implements OnInit {
                                  const publicationsCopy  = this.publications;
                                  const newPublications = response.publications;
                                  this.publications = publicationsCopy.concat(newPublications);
-                                 console.log(this.publications.length);
-                                 console.log(this.total);
                                  if (this.publications.length === (this.total)) {
                                    this.noMore = true;
                                  } else {
