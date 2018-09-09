@@ -42,9 +42,12 @@ export class TimelineComponent implements OnInit {
     this.publication.user = this.identity._id;
     this.publicationService.addPublication(this.token, this.publication)
                            .subscribe((response: any) => {
-                             if(response.publication) {
+                             if (response.publication) {
                                this.publication = response.publication;
+                               console.log(this.publication);
+                               this.publications.unshift(this.publication);
                                newPublication.reset();
+                               this.getPublications(1);
                                this.success = true;
                              } else {
                                this.success = false;
@@ -76,7 +79,6 @@ export class TimelineComponent implements OnInit {
                                  if (this.publications.length === (this.total)) {
                                    this.noMore = true;
                                  } else {
-                                   this.page += 1;
                                    this.noMore = false;
                                  }
                                }
@@ -100,6 +102,8 @@ export class TimelineComponent implements OnInit {
     } else {
       this.page += 1;
     }
+    console.log(this.page);
+    console.log(this.pages);
     this.getPublications(this.page, true);
     // window.scrollTo(0, 0); Ir hasta arriba
   }

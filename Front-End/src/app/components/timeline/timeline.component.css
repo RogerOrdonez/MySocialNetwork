@@ -67,6 +67,7 @@ label {
 .timeline {
     padding-left: 0px;
     padding-right: 0px;
+    padding-bottom: 20px;
     display: inline-block;
 }
 
@@ -110,4 +111,21 @@ p {
 
 .publication-time::before {
     content: "\00b7";
+}
+
+.fade-in {
+    opacity: 1;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 100ms;
+}
+
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }

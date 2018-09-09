@@ -47,7 +47,7 @@
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item pointer">Mi Perfil</a>
-                                <a class="dropdown-item pointer" [routerLink]="['/datos']">Mis Datos</a>
+                                <a class="dropdown-item pointer" (click)="onClick('/datos')">Mis Datos</a>
                                 <a class="dropdown-item pointer" (click)="logout()">Cerrar sesión</a>
                             </div>
                         </div>

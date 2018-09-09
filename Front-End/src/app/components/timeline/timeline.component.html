@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid fade-in">
     <div class="row">
         <div class="col-sm-3">
             <app-sidebar></app-sidebar>
@@ -23,7 +23,7 @@
                 </form>
             </div>
             <!-- Publicaciones -->
-            <div class="publication col-lg-12 bg-light" *ngFor="let publication of publications">
+            <div class="publication col-lg-12 bg-light fade-in" *ngFor="let publication of publications">
                 <div class="row publication-row">
                     <div class="col-lg-1 publication-user-image bg-light">
                         <img class="img-fluid" *ngIf="publication.user.image" [src]="url + 'get-image-file/' + publication.user.image">

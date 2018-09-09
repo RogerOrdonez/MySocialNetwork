@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   public title: String;
   constructor(private router: Router) {
-    this.title = 'Bienvenido a ngSocial';
+    this.title = 'Bienvenido a ngFollow';
     this.router.navigate(['/home']);
   }
 
