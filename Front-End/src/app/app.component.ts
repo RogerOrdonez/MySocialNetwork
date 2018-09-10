@@ -20,8 +20,7 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
   public faUserPlus = faUserPlus;
   public identity;
   public url: string;
-  public actualRoute: string;
-  public samePage = true;
+  public actualRoute = '/timeline';
   public subscription: Subscription;
 
   constructor( private userService: UserService, private activatedRoute: ActivatedRoute, private router: Router) {
@@ -34,14 +33,8 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
        filter(event => event instanceof NavigationEnd)
      )
      .subscribe(() => {
-      if (!this.actualRoute) {
         this.actualRoute = this.router.routerState.snapshot.url;
-      }
-      if (this.actualRoute) {
-         if ( this.actualRoute !== this.router.routerState.snapshot.url) {
-           this.samePage = false;
-         }
-       }
+        this.scrollToTop();
      });
   }
 
@@ -86,9 +79,12 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
   }
 
     onClick(route) {
+      if (route === '/home' && this.identity) {
+        return;
+      }
       this.actualRoute = route;
       this.router.navigate([route]);
-      if (this.samePage === true && route === '/timeline') {
+      if (this.actualRoute === route && route === '/timeline') {
         this.scrollToTop();
       }
     }

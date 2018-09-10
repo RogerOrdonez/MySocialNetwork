@@ -1,5 +1,5 @@
 <div class="container-fluid fade-in">
-    <div class="row">
+    <div class="row" *ngIf="publications">
         <div class="col-sm-3">
             <app-sidebar></app-sidebar>
         </div>
@@ -29,7 +29,7 @@
                         <img class="img-fluid" *ngIf="publication.user.image" [src]="url + 'get-image-file/' + publication.user.image">
                         <img class="img-fluid" *ngIf="!publication.user.image" src="assets/no_image.jpg">
                     </div>
-                    <div class="col-lg-11 bg-light publication-content testing">
+                    <div class="col-lg-11 bg-light publication-content ">
                         <p>
                             <strong>{{ publication.user.name + ' ' + publication.user.surname}}</strong>
                             <small> @{{ publication.user.nick }}</small> <small class="publication-time"> {{ (publication.created_at | amFromUnix) | amLocale:'es' | amTimeAgo }} </small>

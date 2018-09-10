@@ -4,6 +4,7 @@ import { Publication } from '../../models/publication.model';
 import { UserService } from '../../services/user.service';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { retry } from 'rxjs/operators';
 import { PublicationService } from '../../services/publication.service';
 
 
@@ -25,6 +26,7 @@ export class TimelineComponent implements OnInit {
   public total;
   public itemsPerPage;
   public noMore = false;
+  public retry = 0;
 
   constructor(private publicationService: PublicationService, private userService: UserService, private router: Router) {
     this.identity = this.userService.getIdentity();
@@ -35,7 +37,9 @@ export class TimelineComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getPublications(this.page);
+    if (this.token) {
+      this.getPublications(this.page);
+    }
   }
 
   onSubmit(newPublication) {
@@ -44,7 +48,6 @@ export class TimelineComponent implements OnInit {
                            .subscribe((response: any) => {
                              if (response.publication) {
                                this.publication = response.publication;
-                               console.log(this.publication);
                                this.publications.unshift(this.publication);
                                newPublication.reset();
                                this.getPublications(1);
@@ -102,8 +105,6 @@ export class TimelineComponent implements OnInit {
     } else {
       this.page += 1;
     }
-    console.log(this.page);
-    console.log(this.pages);
     this.getPublications(this.page, true);
     // window.scrollTo(0, 0); Ir hasta arriba
   }

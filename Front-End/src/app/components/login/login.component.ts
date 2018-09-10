@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
               this.success = true;
               localStorage.setItem('identity', JSON.stringify(this.identity));
               this.getToken();
-              this.router.navigate(['/']);
             }
             loginForm.reset();
        },
@@ -51,6 +50,7 @@ export class LoginComponent implements OnInit {
             } else {
               localStorage.setItem('token', JSON.stringify(this.token));
               this.getCounters();
+              this.router.navigate(['/timeline']);
               this.success = true;
             }
        },

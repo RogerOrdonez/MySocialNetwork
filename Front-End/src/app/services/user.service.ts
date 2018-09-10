@@ -48,7 +48,7 @@ export class UserService {
 
   getToken() {
     const token = JSON.parse(localStorage.getItem('token'));
-    if (token != 'undefined') {
+    if (token !== 'undefined') {
       this.token = token;
     } else {
       this.token = null;
