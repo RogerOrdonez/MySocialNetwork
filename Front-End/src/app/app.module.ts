@@ -17,6 +17,7 @@ import { FollowService } from './services/follow.service';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { PublicationService } from './services/publication.service';
 import { MomentModule } from 'angular2-moment';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { MomentModule } from 'angular2-moment';
     UserComponent,
     PersonComponent,
     TimelineComponent,
-    SidebarComponent
+    SidebarComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
