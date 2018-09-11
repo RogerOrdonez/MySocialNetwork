@@ -7,6 +7,7 @@ import { HomeComponent } from './components/home/home.component';
 import { UserComponent } from './components/user/user.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { PersonComponent } from './components/person/person.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'timeline', component: TimelineComponent },
   { path: 'people', component: PersonComponent },
   { path: 'people/:page', component: PersonComponent },
+  { path: 'profile/:id', component: ProfileComponent}
   { path: '**', component: HomeComponent },
 ];
 
