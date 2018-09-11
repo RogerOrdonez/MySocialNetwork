@@ -1,0 +1,49 @@
+.icon-with-title {
+    height: 250px;
+    overflow: hidden;
+    font-size: 45px;
+    display: inline;
+}
+
+.testing {
+    border: solid 1px black;
+}
+
+.row {
+    margin: 0px;
+    padding: 0px;
+}
+
+.container {
+    margin: 0px;
+    padding: 0px;
+}
+
+.icon {
+    width: 90px;
+    height: 90px;
+    border: solid 2px #42494f;
+    border-radius: 50%;
+    display: block;
+    margin: auto;
+    padding: auto;
+    margin-top: 5px;
+    line-height: 80px;
+}
+
+.icon-title {
+    margin-top: 15px;
+}
+
+.jumbotron-fluid {
+    margin-bottom: 50px;
+}
+
+.icon-text {
+    font-size: 16px;
+}
+
+fa-icon {
+    width: 45px;
+    height: 45px;
+}

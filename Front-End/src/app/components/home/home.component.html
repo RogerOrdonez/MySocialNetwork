@@ -1,6 +1,39 @@
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-4 ">{{ title }}</h1>
-        <p>Disfruta de las publicaciones de tus amigos. ngFollow, una red social abierta al mundo.</p>
+<div class="jumbotron jumbotron-fluid text-center">
+    <div class="container-fluid container-jumbotron">
+        <h1 class="display-4">{{ title}} </h1>
+        <p class="lead">
+            Disfruta de las publicaciones de tus amigos. ngFollow, una red social abierta al mundo.
+        </p>
+    </div>
+</div>
+<div class="container col-lg-12 main-color m-auto">
+    <div class="row col-lg-8  m-auto">
+        <div class="col-lg-4 icon-with-title">
+            <div class="icon text-center">
+                <fa-icon [icon]="faSignInAlt"></fa-icon>
+            </div>
+            <h2 class="icon-title text-center">Conecta</h2>
+            <p class="icon-text text-center">
+                Únete a un nuevo espacio libre para tus ideas.
+            </p>
+        </div>
+        <div class="col-lg-4 icon-with-title">
+            <div class="icon text-center">
+                <fa-icon [icon]="faSearch"></fa-icon>
+            </div>
+            <h2 class="icon-title text-center">Descubre</h2>
+            <p class="icon-text text-center">
+                Encuentra más personas en la red y expande tu círculo.
+            </p>
+        </div>
+        <div class="col-lg-4 icon-with-title">
+            <div class="icon text-center">
+                <fa-icon [icon]="faShareAlt"></fa-icon>
+            </div>
+            <h2 class="icon-title text-center">Comparte</h2>
+            <p class="icon-text text-center">
+                Disfruta compartir tus ideas en todo momento.
+            </p>
+        </div>
     </div>
 </div>
