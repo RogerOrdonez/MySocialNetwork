@@ -10,3 +10,22 @@
 .data-container {
     padding-bottom: 20px;
 }
+
+.pointer {
+    cursor: pointer;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+#upload-photo {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+    width: 150px;
+}
+
+.upload {
+    padding-left: 0px;
+}

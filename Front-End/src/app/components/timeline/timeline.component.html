@@ -12,10 +12,10 @@
                     </div>
 
 
-                    <label for="upload-photo" class="nav-link text-primary" [routerLink]="['/timeline']" routerLinkActive="active active-border">
+                    <label for="upload-photo" class="nav-link text-primary">
                                 <fa-icon [icon]="faImage"></fa-icon>
                                 Agrega una imagen
-                            </label>
+                    </label>
                     <input type="file" name="photo" id="upload-photo" />
                     <div class="col-lg-12 ml-auto">
                         <input type="submit" value="Publicar" class="btn btn-primary post float-right" [disabled]="!newPublication.valid">

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';Router
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { faImage } from '@fortawesome/free-solid-svg-icons';
 import { User} from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { UploadService } from '../../services/upload.service';
@@ -17,8 +18,9 @@ export class UserComponent implements OnInit {
   public success;
   public filesToUpload: Array<File>;
   public url: string;
+  public faImage;
 
-  constructor(private activatedRoute: ActivatedRoute, 
+  constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
               private userService: UserService,
               private uploadService: UploadService) {
@@ -26,6 +28,7 @@ export class UserComponent implements OnInit {
     this.identity = this.user;
     this.token = this.userService.getToken();
     this.url = environment.backendUrl;
+    this.faImage = faImage;
   }
 
   ngOnInit() {

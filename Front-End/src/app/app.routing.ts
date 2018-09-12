@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'timeline', component: TimelineComponent },
   { path: 'people', component: PersonComponent },
   { path: 'people/:page', component: PersonComponent },
-  { path: 'profile/:id', component: ProfileComponent}
+  { path: 'profile/:id', component: ProfileComponent},
   { path: '**', component: HomeComponent },
 ];
 
