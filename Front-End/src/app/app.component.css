@@ -95,3 +95,11 @@
     font-size: large;
     border: none;
 }
+
+.navbar-brand-center {
+    margin-left: 105px;
+}
+
+.navbar-nav-left {
+    margin-left: 20px;
+}

@@ -1,11 +1,7 @@
 <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
-    <a class="navbar-brand" [ngClass]="{'pointer': !identity}" (click)="onClick('/home')"> {{ title }}</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
+    <a class="navbar-brand pointer" (click)="onClick('/home')" *ngIf="!identity"> {{ title }}</a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="identity">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav navbar-nav-left mr-auto">
             <li class="nav-item">
                 <a class="nav-link pointer" [ngClass]="{'active active-border': actualRoute == '/timeline'}" (click)="onClick('/timeline')">
                     <fa-icon [icon]="faHome"></fa-icon>
@@ -19,6 +15,9 @@
                 </a>
             </li>
         </ul>
+        <a class="navbar-brand navbar-brand-center mr-auto pointer" *ngIf="identity" (click)="scrollToTop()">
+            {{ title }}
+        </a>
         <ul class="navbar-nav ml-auto">
 
             <li class="nav-item">
@@ -50,7 +49,6 @@
             </li>
         </ul>
     </div>
-
 
     <div class="collapse navbar-collapse navbar-right" id="navbarSupportedContent" *ngIf="!identity">
         <ul class="navbar-nav ml-auto">
