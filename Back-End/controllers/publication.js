@@ -45,21 +45,23 @@ function getPublications(request, response) {
         page = request.params.page;
     }
     var itemsPerPage = 10;
-    Follow.find({ user: userId }).populate('followed', { '_id': 1 }).exec((err, follows) => {
-        if (err) return response.status(500).send({ message: 'Error al buscar seguimientos' });
-        var followsClean = [];
+    var followsClean = [];
 
-        follows.forEach((follow) => {
-            followsClean.push(follow.followed);
-        });
+    // Si se está solicitando todas las publicaciones (las del usuario logueado y las de los usuarios que sigue)
+    console.log(request.params.userId);
+    if (request.params.userId) {
 
-        followsClean.push(userId);
-
+        // Si se están solicitando las publicaciones del usuario logueado
+        if (userId === request.params.userId) {
+            followsClean.push(userId);
+        } else { // Se están solicitando las publicaciones de otro usuario en específico
+            followsClean.push(request.params.userId);
+        }
         Publication.find({ user: { $in: followsClean } })
             .sort('-created_at')
             .populate('user', { 'name': 1, 'surname': 1, 'nick': 1, 'image': 1 })
             .paginate(page, itemsPerPage, (err, publications, total) => {
-                if (err) return response.status(500).send({ message: 'Error al buscar publicaciones' });
+                if (err) return response.status(500).send({ message: 'Error al buscar publicaciones 2' });
                 if (!publications) return response.status(404).send({ message: 'No se encotró ninguna publicación.' });
                 return response.status(200).send({
                     totalItems: total,
@@ -69,8 +71,33 @@ function getPublications(request, response) {
                     publications
                 });
             });
+    } else {
+        Follow.find({ user: userId }).populate('followed', { '_id': 1 }).exec((err, follows) => {
+            if (err) return response.status(500).send({ message: 'Error al buscar seguimientos' });
 
-    });
+            follows.forEach((follow) => {
+                followsClean.push(follow.followed);
+            });
+
+            followsClean.push(userId);
+
+            Publication.find({ user: { $in: followsClean } })
+                .sort('-created_at')
+                .populate('user', { 'name': 1, 'surname': 1, 'nick': 1, 'image': 1 })
+                .paginate(page, itemsPerPage, (err, publications, total) => {
+                    if (err) return response.status(500).send({ message: 'Error al buscar publicaciones' });
+                    if (!publications) return response.status(404).send({ message: 'No se encotró ninguna publicación.' });
+                    return response.status(200).send({
+                        totalItems: total,
+                        pages: Math.ceil(total / itemsPerPage),
+                        page: page,
+                        itemsPerPage: itemsPerPage,
+                        publications
+                    });
+                });
+
+        });
+    }
 }
 
 function getPublication(request, response) {
