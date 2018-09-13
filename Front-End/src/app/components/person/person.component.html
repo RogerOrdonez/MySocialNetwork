@@ -5,11 +5,13 @@
                 <div class="row">
                     <div class="card-group col-sm-3 people" *ngFor="let person of users">
                         <div class="card">
-                            <img class="card-img-top img-fluid" *ngIf="person.image" [src]="url + 'get-image-file/' + person.image">
-                            <img class="card-img-top img-fluid" *ngIf="!person.image" src="assets/no_image.jpg">
+                            <img class="card-img-top img-fluid pointer" [routerLink]="['/profile', person._id]" *ngIf="person.image" [src]="url + 'get-image-file/' + person.image">
+                            <img class="card-img-top img-fluid pointer" [routerLink]="['/profile', person._id]" *ngIf="!person.image" src="assets/no_image.jpg">
                             <div class="card-body">
-                                <h5 class="card-title">{{ person.name + ' ' + person.surname }}</h5>
-                                <p class="text-muted"> @{{ person.nick }}</p>
+                                <a class="pointer" [routerLink]="['/profile', person._id]">
+                                    <h5 class="card-title">{{ person.name + ' ' + person.surname }}</h5>
+                                    <p class="text-muted"> @{{ person.nick }}</p>
+                                </a>
                             </div>
                             <div class="card-footer text-center">
                                 <small class="text-muted" *ngIf="followers.indexOf(person._id) >= 0 && person._id != identity._id">Este usuario te sigue</small>
