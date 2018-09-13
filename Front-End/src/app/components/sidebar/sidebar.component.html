@@ -2,20 +2,37 @@
     <div class="container-fluid">
         <div class="row bg-light py-5">
             <div class="col-8 mx-auto">
-                <img class="rounded-circle img-fluid" [src]="url + 'get-image-file/' + identity.image" *ngIf="identity.image">
-                <img class="rounded-circle img-fluid" src="assets/no_image.jpg" *ngIf="!identity.image">
+                <img class="rounded-circle img-fluid" [src]="url + 'get-image-file/' + user.image" *ngIf="user.image">
+                <img class="rounded-circle img-fluid" src="assets/no_image.jpg" *ngIf="!user.image">
             </div>
             <div class="col-12 text-center">
-                <h3>{{ identity.name + ' ' + identity.surname}} </h3>
-                <span class="text-muted">@{{ identity.nick }}</span>
+                <h3>{{ user.name + ' ' + user.surname}} </h3>
+                <span class="text-muted">@{{ user.nick }}</span>
+                <div class="text-center">
+                    <small class="text-muted" *ngIf="follower">Este usuario te sigue</small>
+                    <small class="text-muted" *ngIf="!follower">&nbsp;</small>
+                    <button type="button" class="btn btn-outline-primary btn-sm btn-block follow" *ngIf="!follow && user._id !== identity._id" (click)="followUser(user._id)">
+                                    <fa-icon [icon]="faUserPlus"></fa-icon>
+                                    Seguir
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm btn-block follow" *ngIf="follow && user._id != unfollowUserHover" (mouseenter)="changeUnfollowHover(user._id)">
+                                        <fa-icon [icon]="faUserCheck"></fa-icon>
+                                        Siguiendo
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm btn-block follow" *ngIf="follow && user._id == unfollowUserHover" (mouseleave)="changeUnfollowHover(user._id)" (click)="unfollowUser(user._id)">
+                                    <fa-icon [icon]="faUserMinus"></fa-icon>
+                                    Dejar de Seguir
+                    </button>
+                </div>
             </div>
+
         </div>
         <!--<div class="row mb-2">
             <div class="col-12 py-3">
                 <p>BIO</p>
             </div>
         </div> Aqui iría la BIO-->
-        <div class="row mb-3 mt-3 justify-content-center">
+        <div class="row mb-3 mt-3 justify-content-center" *ngIf="stats">
             <div class="col-sm text-center">
                 <i class="fa fa-star"></i> Posts
                 <h5 class="text-primary">{{ stats.publications }}</h5>
