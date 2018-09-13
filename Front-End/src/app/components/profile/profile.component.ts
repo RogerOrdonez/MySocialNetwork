@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
   public url;
   public stats;
   public follow;
+  public userId;
 
   constructor(
     private router: Router,
@@ -58,6 +59,7 @@ export class ProfileComponent implements OnInit {
                        .subscribe(
                          params => {
                            const id = params['id'];
+                           this.userId = id;
                            this.getUser(id);
                            this.getCounters(id);
                          });
