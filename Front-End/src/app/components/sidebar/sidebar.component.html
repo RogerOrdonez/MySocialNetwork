@@ -23,6 +23,12 @@
                                     <fa-icon [icon]="faUserMinus"></fa-icon>
                                     Dejar de Seguir
                     </button>
+                    <h4>
+                        <small class="badge badge-dark btn-block follow" *ngIf="user._id == identity._id">
+                                <fa-icon [icon]="faUser"></fa-icon>
+                                Tú
+                        </small>
+                    </h4>
                 </div>
             </div>
 
