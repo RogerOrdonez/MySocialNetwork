@@ -1,5 +1,8 @@
 <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
     <a class="navbar-brand pointer" (click)="onClick('/home')" *ngIf="!identity"> {{ title }}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="identity">
         <ul class="navbar-nav navbar-nav-left mr-auto">
             <li class="nav-item">
@@ -68,7 +71,5 @@
     </div>
 
 </nav>
-
-
 
 <router-outlet></router-outlet>
