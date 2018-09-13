@@ -6,12 +6,6 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="identity">
         <ul class="navbar-nav mr-auto">
-            <!--<li class="nav-item">
-                <a class="nav-link pointer" [ngClass]="{'active active-border': actualRoute == '/home'}" (click)="onClick('/home')">
-                    <fa-icon [icon]="faHome"></fa-icon>
-                    Home
-                </a>
-            </li>-->
             <li class="nav-item">
                 <a class="nav-link pointer" [ngClass]="{'active active-border': actualRoute == '/timeline'}" (click)="onClick('/timeline')">
                     <fa-icon [icon]="faHome"></fa-icon>
@@ -29,11 +23,11 @@
 
             <li class="nav-item">
                 <a class="user-info">
-                    <img *ngIf="identity && identity.image" [src]="url + 'get-image-file/' + identity.image" class="rounded user-image pointer">
+                    <img *ngIf="identity && identity.image" [src]="url + 'get-image-file/' + identity.image" class="rounded user-image pointer" [routerLink]="['/profile', identity._id]">
                 </a>
             </li>
             <li class="nav-item user-info">
-                <a class="btn" role="button">
+                <a class="btn" role="button" [routerLink]="['/profile', identity._id]">
                    {{ identity.nick }}
                 </a>
             </li>
@@ -46,7 +40,7 @@
                               <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item pointer">Mi Perfil</a>
+                                <a class="dropdown-item pointer" [routerLink]="['/profile', identity._id]">Mi Perfil</a>
                                 <a class="dropdown-item pointer" (click)="onClick('/datos')">Mis Datos</a>
                                 <a class="dropdown-item pointer" (click)="logout()">Cerrar sesión</a>
                             </div>
