@@ -1,11 +1,11 @@
 <div class="container-fluid fade-in">
     <div class="row" *ngIf="publications">
         <div class="col-sm-3">
-            <app-sidebar></app-sidebar>
+            <app-sidebar [userId]="userId"></app-sidebar>
         </div>
         <div class="col-sm-6 timeline">
             <!-- Caja para crear nuevas publicaciones -->
-            <div class="col-lg-12 bg-light publication-box">
+            <div class="col-lg-12 bg-light publication-box" *ngIf="!userId">
                 <form #newPublication="ngForm" (submit)="onSubmit(newPublication)">
                     <div class="col-lg-12">
                         <textarea class="form-control form-control-sm" name="text" rows="10" #text="ngModel" [(ngModel)]="publication.text" required placeholder="Crea una publicación" rows="3"></textarea>
@@ -23,20 +23,22 @@
                 </form>
             </div>
             <!-- Publicaciones -->
-            <div class="publication col-lg-12 bg-light fade-in" *ngFor="let publication of publications">
-                <div class="row publication-row">
-                    <div class="col-lg-1 publication-user-image bg-light">
-                        <img class="img-fluid" *ngIf="publication.user.image" [src]="url + 'get-image-file/' + publication.user.image">
-                        <img class="img-fluid" *ngIf="!publication.user.image" src="assets/no_image.jpg">
-                    </div>
-                    <div class="col-lg-11 bg-light publication-content ">
-                        <p>
-                            <strong>{{ publication.user.name + ' ' + publication.user.surname}}</strong>
-                            <small> @{{ publication.user.nick }}</small> <small class="publication-time"> {{ (publication.created_at | amFromUnix) | amLocale:'es' | amTimeAgo }} </small>
-                        </p>
-                        <p>
-                            {{ publication.text }}
-                        </p>
+            <div [ngStyle]="{'margin-top':userId ? '15px' : '0px' }">
+                <div class="publication col-lg-12 bg-light fade-in" *ngFor="let publication of publications">
+                    <div class="row publication-row">
+                        <div class="col-lg-1 publication-user-image bg-light">
+                            <img class="img-fluid" *ngIf="publication.user.image" [src]="url + 'get-image-file/' + publication.user.image">
+                            <img class="img-fluid" *ngIf="!publication.user.image" src="assets/no_image.jpg">
+                        </div>
+                        <div class="col-lg-11 bg-light publication-content ">
+                            <p>
+                                <strong>{{ publication.user.name + ' ' + publication.user.surname}}</strong>
+                                <small> @{{ publication.user.nick }}</small> <small class="publication-time"> {{ (publication.created_at | amFromUnix) | amLocale:'es' | amTimeAgo }} </small>
+                            </p>
+                            <p>
+                                {{ publication.text }}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

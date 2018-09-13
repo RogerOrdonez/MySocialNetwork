@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Publication } from '../../models/publication.model';
 import { UserService } from '../../services/user.service';
@@ -27,6 +27,7 @@ export class TimelineComponent implements OnInit {
   public itemsPerPage;
   public noMore = false;
   public retry = 0;
+  @Input() userId;
 
   constructor(private publicationService: PublicationService, private userService: UserService, private router: Router) {
     this.identity = this.userService.getIdentity();
@@ -38,7 +39,7 @@ export class TimelineComponent implements OnInit {
 
   ngOnInit() {
     if (this.token) {
-      this.getPublications(this.page);
+      this.getPublications(this.page, false, this.userId);
     }
   }
 
@@ -50,7 +51,7 @@ export class TimelineComponent implements OnInit {
                                this.publication = response.publication;
                                this.publications.unshift(this.publication);
                                newPublication.reset();
-                               this.getPublications(1);
+                               this.getPublications(1, false, this.userId);
                                this.success = true;
                              } else {
                                this.success = false;
@@ -63,8 +64,8 @@ export class TimelineComponent implements OnInit {
                            });
   }
 
-  getPublications(page, adding = false) {
-    this.publicationService.getPublications(this.token, page)
+  getPublications(page, adding = false, userId?) {
+    this.publicationService.getPublications(this.token, page, userId)
                            .subscribe((response: any) => {
                              if (response.publications) {
                                this.total = response.totalItems;
@@ -105,7 +106,7 @@ export class TimelineComponent implements OnInit {
     } else {
       this.page += 1;
     }
-    this.getPublications(this.page, true);
+    this.getPublications(this.page, true, this.userId);
     // window.scrollTo(0, 0); Ir hasta arriba
   }
 
