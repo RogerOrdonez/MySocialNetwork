@@ -9,9 +9,10 @@ import { retry } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class PublicationService {
+  public backendUrl: string;
   public url: string;
   constructor(private http: HttpClient) {
-    this.url = environment.backendUrl;
+    this.backendUrl = environment.backendUrl;
    }
 
    addPublication(token, publication: Publication) {
@@ -21,10 +22,15 @@ export class PublicationService {
       return this.http.post(this.url + 'publication', params, {headers: headers});
    }
 
-   getPublications(token, page = 1) {
+   getPublications(token, page = 1, userId?) {
       const headers = new HttpHeaders().set('Content-Type', 'application/json')
                                        .set('Authorization', token);
-      return this.http.get(this.url + 'publications/' + page, {headers: headers})
+      if (userId) {
+        this.url = `publications/${userId}/${page}`;
+      } else {
+        this.url = `publications/${page}`;
+      }
+      return this.http.get(this.backendUrl + this.url, {headers: headers})
                       .pipe(retry(1));
    }
 
