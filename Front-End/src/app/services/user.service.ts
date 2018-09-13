@@ -59,7 +59,7 @@ export class UserService {
   }
 
   getStats() {
-    let stats = JSON.parse(localStorage.getItem('stats'));
+    const stats = JSON.parse(localStorage.getItem('stats'));
     if (stats) {
        this.stats = stats;
     } else {
