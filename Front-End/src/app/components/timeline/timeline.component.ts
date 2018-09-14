@@ -62,7 +62,7 @@ export class TimelineComponent implements OnInit {
                            .subscribe((response: any) => {
                              if (response.publication) {
                                 this.publication = response.publication;
-                                this.publications.unshift(this.publication);
+                                // this.publications.unshift(this.publication);
                                 // Subir Imagen
                                 if (this.filesToUpload) {
                                   this.uploadService.makeFileRequest(
