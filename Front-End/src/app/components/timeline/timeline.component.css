@@ -138,3 +138,23 @@ a {
 a strong:hover {
     text-decoration: underline;
 }
+
+.preview {
+    width: 125px;
+    height: 125px;
+    margin-left: 20px;
+}
+
+.preview-image {
+    width: 113px;
+    height: 113px;
+    float: left;
+    display: inline;
+}
+
+.remove-image-black {
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.9);
+    margin-left: -10px;
+    margin-top: -20px;
+}
