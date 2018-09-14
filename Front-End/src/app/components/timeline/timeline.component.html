@@ -26,14 +26,17 @@
             <div [ngStyle]="{'margin-top':userId ? '15px' : '0px' }">
                 <div class="publication col-lg-12 bg-light fade-in" *ngFor="let publication of publications">
                     <div class="row publication-row">
-                        <div class="col-lg-1 publication-user-image bg-light">
+                        <div class="col-lg-1 publication-user-image bg-light pointer" [routerLink]="['/profile', publication.user._id]">
                             <img class="img-fluid" *ngIf="publication.user.image" [src]="url + 'get-image-file/' + publication.user.image">
                             <img class="img-fluid" *ngIf="!publication.user.image" src="assets/no_image.jpg">
                         </div>
                         <div class="col-lg-11 bg-light publication-content ">
                             <p>
-                                <strong>{{ publication.user.name + ' ' + publication.user.surname}}</strong>
-                                <small> @{{ publication.user.nick }}</small> <small class="publication-time"> {{ (publication.created_at | amFromUnix) | amLocale:'es' | amTimeAgo }} </small>
+                                <a class="pointer" [routerLink]="['/profile', publication.user._id]">
+                                    <strong>{{ publication.user.name + ' ' + publication.user.surname}}</strong>
+                                    <small> @{{ publication.user.nick }}</small>
+                                </a>
+                                <small class="publication-time"> {{ (publication.created_at | amFromUnix) | amLocale:'es' | amTimeAgo }} </small>
                             </p>
                             <p>
                                 {{ publication.text }}
