@@ -59,6 +59,7 @@ label {
     padding-right: 20px;
     border-bottom: solid 1px rgba(0, 0, 0, .125);
     overflow: hidden;
+    min-height: 120px;
 }
 
 .publication-hover {
@@ -82,6 +83,8 @@ label {
     margin-left: 0px;
     padding-left: 0px;
     padding-bottom: 10px;
+    padding-right: 5px;
+    /*margin-top: -5px;*/
 }
 
 .row {
@@ -159,4 +162,30 @@ a strong:hover {
     color: rgba(0, 0, 0, 0.9);
     margin-left: -10px;
     margin-top: -20px;
+}
+
+.options-content {
+    display: inline-block;
+}
+
+.header-content {
+    display: inline;
+}
+
+.dropdown-item {
+    font-size: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 0px;
+}
+
+.dropdown-item:hover {
+    background-color: #007bff!important;
+    color: white!important;
+}
+
+.dropdown-menu {
+    padding: 0px;
+    min-width: 60px;
 }
