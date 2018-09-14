@@ -19,7 +19,7 @@ export class PublicationService {
       const params = JSON.stringify(publication);
       const headers = new HttpHeaders().set('Content-Type', 'application/json')
                                        .set('Authorization', token);
-      return this.http.post(this.url + 'publication', params, {headers: headers});
+      return this.http.post(this.backendUrl + 'publication', params, {headers: headers});
    }
 
    getPublications(token, page = 1, userId?) {
