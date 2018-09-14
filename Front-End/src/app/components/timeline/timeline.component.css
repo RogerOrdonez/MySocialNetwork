@@ -5,6 +5,7 @@
 textarea {
     resize: none;
     margin-top: 10px;
+    overflow: hidden;
 }
 
 .image-upload {
@@ -80,6 +81,7 @@ label {
 .publication-content {
     margin-left: 0px;
     padding-left: 0px;
+    padding-bottom: 10px;
 }
 
 .row {
@@ -88,7 +90,7 @@ label {
     padding-right: 0px;
 }
 
-.img-fluid {
+.img-fluid-user {
     width: 48px;
     height: 48px;
     border-radius: 50%;

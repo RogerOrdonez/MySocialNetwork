@@ -56,6 +56,7 @@ export class TimelineComponent implements OnInit {
   }
 
   onSubmit(newPublication) {
+    console.log('onSubmit');
     this.publication.user = this.identity._id;
     this.publicationService.addPublication(this.token, this.publication)
                            .subscribe((response: any) => {
@@ -74,14 +75,13 @@ export class TimelineComponent implements OnInit {
                                     .then((result: any) => {
                                       this.publication.file = result.image;
                                     });
-                                  newPublication.reset();
-                                  this.urlImage = null;
-                                  this.filesToUpload = null;
                                   this.getPublications(1, false, this.userId);
-                                  this.success = true;
                                 } else {
                                   this.success = false;
                                 }
+                                newPublication.reset();
+                                this.urlImage = null;
+                                this.filesToUpload = null;
                                 this.success = true;
                                 this.getPublications(1, false, this.userId);
                              }
