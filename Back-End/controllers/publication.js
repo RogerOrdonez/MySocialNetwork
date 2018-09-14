@@ -47,8 +47,7 @@ function getPublications(request, response) {
     var itemsPerPage = 10;
     var followsClean = [];
 
-    // Si se está solicitando todas las publicaciones (las del usuario logueado y las de los usuarios que sigue)
-    console.log(request.params.userId);
+    // Si se está solicitando todas las publicaciones (las del usuario logueado y las de los usuarios que sigue)    
     if (request.params.userId) {
 
         // Si se están solicitando las publicaciones del usuario logueado
