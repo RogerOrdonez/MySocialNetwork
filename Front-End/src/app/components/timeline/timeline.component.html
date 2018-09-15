@@ -1,7 +1,7 @@
 <div class="container-fluid fade-in">
     <div class="row" *ngIf="publications">
         <div class="col-sm-3">
-            <app-sidebar [userId]="userId"></app-sidebar>
+            <app-sidebar [userId]="userId" [newPosts]="newPost"></app-sidebar>
         </div>
         <div class="col-sm-6 timeline">
             <!-- Caja para crear nuevas publicaciones -->

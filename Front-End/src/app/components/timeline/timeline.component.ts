@@ -32,6 +32,7 @@ export class TimelineComponent implements OnInit {
   public itemsPerPage;
   public noMore = false;
   public retry = 0;
+  public newPost;
   @Input() userId;
   public filesToUpload: Array<File>;
   @ViewChild('inputFile') inputFile: ElementRef;
@@ -46,7 +47,8 @@ export class TimelineComponent implements OnInit {
     this.token = this.userService.getToken();
     this.url = environment.backendUrl;
     this.publication = new Publication('', '', '', '', null);
-    this.page = 1;
+    this.newPost = 0;
+    this.newPost = false;
   }
 
   ngOnInit() {
@@ -56,7 +58,6 @@ export class TimelineComponent implements OnInit {
   }
 
   onSubmit(newPublication) {
-    console.log('onSubmit');
     this.publication.user = this.identity._id;
     this.publicationService.addPublication(this.token, this.publication)
                            .subscribe((response: any) => {
@@ -82,13 +83,13 @@ export class TimelineComponent implements OnInit {
                                 this.urlImage = null;
                                 this.filesToUpload = null;
                                 this.success = true;
+                                this.newPost += 1;
                                 this.getPublications(1, false, this.userId);
                              }
                            }
                            ,
                            error => {
                              this.success = false;
-                             console.log(<any> error);
                            });
   }
 
@@ -135,7 +136,6 @@ export class TimelineComponent implements OnInit {
                            },
                            error => {
                              this.success = false;
-                             console.log(<any> error);
                            });
   }
 

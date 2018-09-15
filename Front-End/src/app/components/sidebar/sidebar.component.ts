@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { environment } from '../../../environments/environment';
 import { User } from '../../models/user.model';
@@ -11,7 +11,7 @@ import { Follow } from '../../models/follow.model';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnChanges {
   public identity;
   public token;
   public stats;
@@ -19,20 +19,23 @@ export class SidebarComponent implements OnInit {
   public success;
   public follow;
   public follower;
-  @Input() public userId;
+  @Input() userId;
+  @Input() newPosts;
   public user: User;
   public faUserMinus = faUserMinus;
   public faUserPlus = faUserPlus;
   public faUserCheck = faUserCheck;
   public faUser = faUser;
   public unfollowUserHover;
-  public followUserHover = false;
+  public followUserHover: boolean;
+  private changeLog: string[] = [];
 
   constructor(private userService: UserService, private followService: FollowService) {
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
     this.url = environment.backendUrl;
     this.user = new User('', '', '', '', '', '', '', '');
+    this.followUserHover = false;
   }
 
   ngOnInit() {
@@ -130,6 +133,12 @@ export class SidebarComponent implements OnInit {
                       error => {
                         this.success = false;
                       });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if ( changes.newPosts.currentValue > 0) {
+      this.newPosts = changes.newPosts.currentValue;
+    }
   }
 
 }
