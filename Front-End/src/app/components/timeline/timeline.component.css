@@ -162,6 +162,14 @@ a strong:hover {
     margin-top: -20px;
 }
 
+.remove-image-edit {
+    font-size: 25px;
+    color: rgba(0, 0, 0, 0.9);
+    margin-left: -7px;
+    margin-top: -20px;
+    padding-top: 0px;
+}
+
 .options-content {
     display: inline-block;
 }
@@ -186,4 +194,27 @@ a strong:hover {
 .dropdown-menu {
     padding: 0px;
     min-width: 60px;
+}
+
+.publication-image {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.btn-edit-options {
+    margin-right: 35px;
+    margin-top: 10px;
+}
+
+.text-update {
+    width: 550px;
+    margin-bottom: 10px;
+}
+
+.row-image {
+    padding-left: 0px;
+}
+
+.btn-update {
+    margin-left: 5px;
 }

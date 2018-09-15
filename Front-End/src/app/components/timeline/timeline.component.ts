@@ -33,7 +33,10 @@ export class TimelineComponent implements OnInit {
   public noMore = false;
   public retry = 0;
   public newPost;
+  public editedText;
+  public editedPublication;
   @Input() userId;
+  public editMode: boolean;
   public filesToUpload: Array<File>;
   @ViewChild('inputFile') inputFile: ElementRef;
 
@@ -49,6 +52,7 @@ export class TimelineComponent implements OnInit {
     this.publication = new Publication('', '', '', '', null);
     this.newPost = 0;
     this.page = 1;
+    this.editMode = false;
   }
 
   ngOnInit() {
@@ -153,6 +157,22 @@ export class TimelineComponent implements OnInit {
     this.urlImage = null;
     this.filesToUpload = null;
     this.inputFile.nativeElement.value = '';
+  }
+
+  editPost(publicationId, originalText) {
+    console.log('Edit Post ' + publicationId);
+    this.editedPublication = publicationId;
+    this.editedText = originalText;
+    this.editMode = true;
+  }
+
+  deletePost(publicationId) {
+    console.log('Delete Post ' + publicationId);
+  }
+
+  cancelEdit() {
+    this.editMode = false;
+    this.editedPublication = null;
   }
 
 }
