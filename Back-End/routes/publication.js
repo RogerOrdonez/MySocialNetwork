@@ -13,6 +13,7 @@ api.get('/publications/:userId/:page', middleAuth.ensureAuth, publicationControl
 api.get('/publication/:id', middleAuth.ensureAuth, publicationController.getPublication);
 api.get('/get-image-pub/:imageFile', publicationController.getImageFile);
 
+api.put('/update-publication/:id/:text/:file', middleAuth.ensureAuth, publicationController.updatePublication);
 
 api.post('/publication', middleAuth.ensureAuth, publicationController.savePublication);
 api.post('/upload-image-pub/:id', [middleAuth.ensureAuth, middleUpload], publicationController.uploadImage);

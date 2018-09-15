@@ -163,6 +163,23 @@ function removeFileFromUploads(response, filePath, message) {
     });
 }
 
+function updatePublication(request, response) {
+    var publicationId = request.params.id;
+    var fileName = request.params.file;
+    var text = request.params.text;
+
+    Publication
+        .findOne({ user: request.user.sub, _id: publicationId })
+        .update({ file: fileName, text: text }, (err) => {
+            if (err) {
+                return response.status(500).send({ message: 'Error en la petición...' });
+            }
+            return response.status(200).send({
+                message: 'Publicación actualizada'
+            });
+        });
+}
+
 module.exports = {
     test,
     savePublication,
@@ -170,5 +187,6 @@ module.exports = {
     getPublication,
     deletePublication,
     uploadImage,
-    getImageFile
+    getImageFile,
+    updatePublication
 }
