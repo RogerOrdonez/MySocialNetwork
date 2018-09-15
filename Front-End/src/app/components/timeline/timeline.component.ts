@@ -35,6 +35,9 @@ export class TimelineComponent implements OnInit {
   public newPost;
   public editedText;
   public editedPublication;
+  public editedImage;
+  public changed: boolean;
+  public originalText;
   @Input() userId;
   public editMode: boolean;
   public filesToUpload: Array<File>;
@@ -53,6 +56,7 @@ export class TimelineComponent implements OnInit {
     this.newPost = 0;
     this.page = 1;
     this.editMode = false;
+    this.changed = false;
   }
 
   ngOnInit() {
@@ -162,17 +166,68 @@ export class TimelineComponent implements OnInit {
   editPost(publicationId, originalText) {
     console.log('Edit Post ' + publicationId);
     this.editedPublication = publicationId;
+    this.originalText = originalText;
     this.editedText = originalText;
     this.editMode = true;
   }
 
-  deletePost(publicationId) {
-    console.log('Delete Post ' + publicationId);
+  deleteImage(image) {
+    this.editedImage = 'null';
+    this.changed = true;
   }
 
   cancelEdit() {
     this.editMode = false;
     this.editedPublication = null;
+    this.editedImage = null;
+    this.originalText = null;
+    this.changed = false;
   }
+
+  updateText() {
+    if (this.editedText !== this.originalText) {
+      this.changed = true;
+    } else {
+      this.changed = false;
+    }
+  }
+
+  updatePublication() {
+    if (this.editedImage === undefined) {
+      this.editedImage = 'null';
+    }
+    this.publicationService.updatePublication(this.token, this.editedPublication, this.editedText, this.editedImage)
+                           .subscribe(
+                            response => {
+                              if (response) {
+                                this.success = true;
+                                this.editMode = false;
+                                this.editedPublication = null;
+                                this.editedImage = null;
+                                this.originalText = null;
+                                this.changed = false;
+                                this.getPublications(1, false, this.userId);
+                              }
+                            },
+                            error => {
+                              this.success = false;
+                            });
+  }
+
+  deletePost(publicationId) {
+    console.log('Delete Post ' + publicationId);
+    this.publicationService.deletePublication(this.token, publicationId)
+                          .subscribe(
+                            response => {
+                                this.success = true;
+                                this.newPost -= 1;
+                                this.getPublications(1, false, this.userId);
+                            },
+                            error => {
+                              this.success = false;
+                              console.log(<any>error);
+                            });
+  }
+
 
 }

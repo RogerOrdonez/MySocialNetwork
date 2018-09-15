@@ -34,11 +34,19 @@ export class PublicationService {
                       .pipe(retry(1));
    }
 
+   updatePublication(token, publicationId, publicationText, publicationImage) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json')
+                                     .set('Authorization', token);
+    return this.http.put(
+      this.backendUrl + 'update-publication/' + publicationId + '/'
+      + publicationText + '/' + publicationImage,
+      {headers: headers});
+   }
+
    deletePublication(token, publicationId) {
       const headers = new HttpHeaders().set('Content-Type', 'application/json')
                                        .set('Authorization', token);
-      return this.http.delete(this.url + 'publication/' + publicationId, {headers: headers});
+      return this.http.delete(this.backendUrl + 'publication/' + publicationId, {headers: headers});
    }
-
 
 }
