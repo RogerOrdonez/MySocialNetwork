@@ -43,7 +43,8 @@
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item pointer text-left" (click)="editPost(publication._id, publication.text)">Editar</a>
-                                    <a class="dropdown-item pointer text-left" (click)="deletePost(publication._id)">Borrar</a>
+                                    <a class="dropdown-item pointer text-left" data-toggle="modal" data-target="#confirmation">Borrar</a>
+
                                 </div>
                             </div>
                             <p>
@@ -56,8 +57,29 @@
                             <p *ngIf="publication._id !== editedPublication">
                                 {{ publication.text }}
                             </p>
+                            <!-- Modal -->
+                            <div class="modal fade" id="confirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalCenterTitle">Eliminar publicación</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            ¿Está seguro que desea eliminar esta publicación?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                                            <button type="button" class="btn btn-sm btn-outline-primary" data-dismiss="modal" (click)="deletePost(publication._id)">Borrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <!-- Editando imagen de la publicación -->
-                            <textarea #textUpdate="ngModel" [(ngModel)]="editedText" *ngIf="editMode && publication._id === editedPublication" autosize [minRows]="3" [maxRows]="20" cols="30" class="form-control form-control-sm text-update" name="text" required placeholder="Agrega un texto para esta publicación" (keyup)="updateText()"></textarea>
+                            <textarea #textUpdate="ngModel" [(ngModel)]="editedText" *ngIf="editMode && publication._id === editedPublication" autosize [minRows]="3" [maxRows]="20" cols="30" class="form-control form-control-sm text-update" name="text" required placeholder="Agrega un texto para esta publicación"
+                                (keyup)="updateText()"></textarea>
                             <div class="row row-image">
                                 <div class="col-lg-11 publication-image">
                                     <img class="img-fluid rounded" *ngIf="this.publication.file && this.publication.file !== 'null' && !editedImage" [src]="url + 'get-image-pub/' + publication.file">
@@ -74,6 +96,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Fin de las publicaciones -->
             <div class="col-lg-12 bg-light see-more ">
                 <button class="btn btn-primary btn-sm btn-block " (click)="viewMore() " *ngIf="!noMore ">
                     Ver más publicaciones

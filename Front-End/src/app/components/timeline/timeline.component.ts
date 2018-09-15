@@ -8,6 +8,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { retry } from 'rxjs/operators';
 import { PublicationService } from '../../services/publication.service';
 import { UploadService } from '../../services/upload.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -42,12 +43,14 @@ export class TimelineComponent implements OnInit {
   public editMode: boolean;
   public filesToUpload: Array<File>;
   @ViewChild('inputFile') inputFile: ElementRef;
+  closeResult: string;
 
   constructor(
       private publicationService: PublicationService,
       private userService: UserService,
       private router: Router,
-      private uploadService: UploadService
+      private uploadService: UploadService,
+      private modalService: NgbModal
   ) {
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
@@ -228,6 +231,4 @@ export class TimelineComponent implements OnInit {
                               console.log(<any>error);
                             });
   }
-
-
 }
