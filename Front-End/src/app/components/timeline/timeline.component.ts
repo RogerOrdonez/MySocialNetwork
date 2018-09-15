@@ -48,7 +48,7 @@ export class TimelineComponent implements OnInit {
     this.url = environment.backendUrl;
     this.publication = new Publication('', '', '', '', null);
     this.newPost = 0;
-    this.newPost = false;
+    this.page = 1;
   }
 
   ngOnInit() {
