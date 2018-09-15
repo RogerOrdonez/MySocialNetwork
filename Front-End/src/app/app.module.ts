@@ -19,6 +19,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { PublicationService } from './services/publication.service';
 import { MomentModule } from 'angular2-moment';
 import { ProfileComponent } from './components/profile/profile.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     FormsModule,
     HttpClientModule,
     MomentModule,
-    AutosizeModule
+    AutosizeModule,
+    NgbModule
   ],
   providers: [UserService,
               FollowService,
