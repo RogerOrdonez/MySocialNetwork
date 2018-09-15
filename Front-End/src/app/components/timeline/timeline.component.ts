@@ -42,7 +42,10 @@ export class TimelineComponent implements OnInit {
   @Input() userId;
   public editMode: boolean;
   public filesToUpload: Array<File>;
+  public filesToUpdate: Array<File>;
+  public urlUpdateImage;
   @ViewChild('inputFile') inputFile: ElementRef;
+  @ViewChild('updateFile') updateFile: ElementRef;
   closeResult: string;
 
   constructor(
@@ -85,10 +88,13 @@ export class TimelineComponent implements OnInit {
                                     )
                                     .then((result: any) => {
                                       this.publication.file = result.image;
+                                      newPublication.reset();
+                                      this.urlImage = null;
+                                      this.filesToUpload = null;
+                                      this.success = true;
+                                      this.newPost += 1;
+                                      this.getPublications(1, false, this.userId);
                                     });
-                                  this.getPublications(1, false, this.userId);
-                                } else {
-                                  this.success = false;
                                 }
                                 newPublication.reset();
                                 this.urlImage = null;
@@ -96,7 +102,9 @@ export class TimelineComponent implements OnInit {
                                 this.success = true;
                                 this.newPost += 1;
                                 this.getPublications(1, false, this.userId);
-                             }
+                             } else {
+                              this.success = false;
+                            }
                            }
                            ,
                            error => {
@@ -111,6 +119,18 @@ export class TimelineComponent implements OnInit {
       reader.readAsDataURL(inputFile.target.files[0]);
       reader.onload = (event: any) => {
         this.urlImage = event.target.result;
+      };
+    }
+  }
+
+  fileUpdateEvent(inputFile: any) {
+    this.filesToUpdate = <Array<File>>inputFile.target.files;
+    if (inputFile.target.files && inputFile.target.files[0]) {
+      const reader = new FileReader();
+      reader.readAsDataURL(inputFile.target.files[0]);
+      reader.onload = (event: any) => {
+        this.urlUpdateImage = event.target.result;
+        this.changed = true;
       };
     }
   }
@@ -166,8 +186,13 @@ export class TimelineComponent implements OnInit {
     this.inputFile.nativeElement.value = '';
   }
 
+  removeUpdateImage() {
+      this.urlUpdateImage = null;
+      this.filesToUpdate = null;
+      this.updateFile.nativeElement.value = '';
+  }
+
   editPost(publicationId, originalText) {
-    console.log('Edit Post ' + publicationId);
     this.editedPublication = publicationId;
     this.originalText = originalText;
     this.editedText = originalText;
@@ -185,6 +210,8 @@ export class TimelineComponent implements OnInit {
     this.editedImage = null;
     this.originalText = null;
     this.changed = false;
+    this.filesToUpload = null;
+    this.urlImage = null;
   }
 
   updateText() {
@@ -201,14 +228,38 @@ export class TimelineComponent implements OnInit {
     }
     this.publicationService.updatePublication(this.token, this.editedPublication, this.editedText, this.editedImage)
                            .subscribe(
-                            response => {
+                            (response: any) => {
                               if (response) {
+                                if (this.filesToUpdate) {
+                                  this.uploadService.makeFileRequest(
+                                      this.url + 'upload-image-pub/' + this.editedPublication,
+                                      [],
+                                      this.filesToUpdate,
+                                      this.token,
+                                      'image'
+                                    )
+                                    .then((result: any) => {
+                                      this.success = true;
+                                      this.editMode = false;
+                                      this.editedPublication = null;
+                                      this.editedImage = null;
+                                      this.originalText = null;
+                                      this.changed = false;
+                                      this.filesToUpdate = null;
+                                      this.urlImage = null;
+                                      this.urlUpdateImage = null;
+                                      this.getPublications(1, false, this.userId);
+                                    });
+                                }
                                 this.success = true;
                                 this.editMode = false;
                                 this.editedPublication = null;
                                 this.editedImage = null;
                                 this.originalText = null;
                                 this.changed = false;
+                                this.filesToUpdate = null;
+                                this.urlImage = null;
+                                this.urlUpdateImage = null;
                                 this.getPublications(1, false, this.userId);
                               }
                             },
@@ -218,7 +269,6 @@ export class TimelineComponent implements OnInit {
   }
 
   deletePost(publicationId) {
-    console.log('Delete Post ' + publicationId);
     this.publicationService.deletePublication(this.token, publicationId)
                           .subscribe(
                             response => {

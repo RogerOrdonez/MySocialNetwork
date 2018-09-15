@@ -6,6 +6,7 @@ textarea {
     resize: none;
     margin-top: 10px;
     overflow: hidden;
+    font-size: 15px;
 }
 
 .image-upload {
@@ -217,4 +218,9 @@ a strong:hover {
 
 .btn-update {
     margin-left: 5px;
+}
+
+.add-photo {
+    padding-left: 0px;
+    margin-left: 0px;
 }
