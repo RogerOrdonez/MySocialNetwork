@@ -75,14 +75,12 @@ function loginUser(request, response) {
 
     User.findOne({ email: email })
         .exec((err, usr) => {
-            console.log(usr);
             if (err) return response.status(500).send({ message: 'Error al consultar en la BD' + err });
             if (usr) {
                 bcrypt.compare(password, usr.password, (err, check) => {
                     if (err) return response.status(500).send({ message: 'Error al autenticar al usuario 1' + err });
                     if (check) {
                         if (params.gettoken) {
-                            console.log('Devolviendo token')
                             return response.status(200).send({
                                 token: jwt.createToken(usr)
                             });
