@@ -1,9 +1,9 @@
 <div class="container-fluid people fade-in">
-    <div class="col-lg-12">
+    <div class="col-lg-10 mr-auto ml-auto">
         <div class="row">
             <div class="col-sm-12">
                 <div class="row">
-                    <div class="card-group col-sm-3 people" *ngFor="let person of users">
+                    <div class="card-group col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12 people" *ngFor="let person of users">
                         <div class="card">
                             <img class="card-img-top img-fluid pointer" [routerLink]="['/profile', person._id]" *ngIf="person.image" [src]="url + 'get-image-file/' + person.image">
                             <img class="card-img-top img-fluid pointer" [routerLink]="['/profile', person._id]" *ngIf="!person.image" src="assets/no_image.jpg">
@@ -38,7 +38,7 @@
 
                         </div>
                     </div>
-                    <nav class="col-sm-12 pagination-control">
+                    <nav class="col-sm-12 pagination-control" *ngIf="pages > 1">
                         <ul class="pagination justify-content-center">
                             <li class="page-item" [ngClass]="{'disabled': (page <= 1 || !page)}">
                                 <a class="page-link" [routerLink]="['/people', prevPage]" tabindex="-1" [routerLink]="['/people', prevPage]">Anterior</a>
@@ -50,9 +50,6 @@
                     </nav>
                 </div>
             </div>
-            <!--<div class="col-sm-3 people">
-                <app-sidebar></app-sidebar>
-            </div>-->
         </div>
     </div>
 </div>
