@@ -20,6 +20,7 @@ import { PublicationService } from './services/publication.service';
 import { MomentModule } from 'angular2-moment';
 import { ProfileComponent } from './components/profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PublicationComponent } from './components/publication/publication.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     PersonComponent,
     TimelineComponent,
     SidebarComponent,
-    ProfileComponent
+    ProfileComponent,
+    PublicationComponent
   ],
   imports: [
     BrowserModule,
