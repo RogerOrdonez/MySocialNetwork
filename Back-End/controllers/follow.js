@@ -58,6 +58,7 @@ function getFollowingUsers(request, response) {
         //delete follows.password;
         response.status(200).send({
             total,
+            page: page,
             pages: Math.ceil(total / itemsPerPage),
             following: follows
         });
@@ -86,6 +87,7 @@ function getFollowerUsers(request, response) {
         if (!follows) return response.status(404).send({ message: 'Error: No hay seguidores.' });
         response.status(200).send({
             total,
+            page: page,
             pages: Math.ceil(total / itemsPerPage),
             follower: follows
         });
