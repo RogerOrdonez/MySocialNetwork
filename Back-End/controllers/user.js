@@ -155,7 +155,7 @@ function getUsers(request, response) {
         page = request.params.page;
     }
 
-    var itemsPerPage = 8;
+    var itemsPerPage = 12;
 
 
     User.find().sort('_id').paginate(page, itemsPerPage, (err, usrs, total) => {
