@@ -14,13 +14,13 @@
                 <ngb-tab id="following-tab">
                     <ng-template ngbTabTitle><b>Siguiendo</b></ng-template>
                     <ng-template ngbTabContent>
-                        <app-person [option]="'following'"></app-person>
+                        <app-person [option]="'following'" [userId]="userId"></app-person>
                     </ng-template>
                 </ngb-tab>
                 <ngb-tab id="followers-tab">
                     <ng-template ngbTabTitle><b>Seguidores</b></ng-template>
                     <ng-template ngbTabContent>
-                        <app-person [option]="'followers'"></app-person>
+                        <app-person [option]="'followers'" [userId]="userId"></app-person>
                     </ng-template>
                 </ngb-tab>
             </ngb-tabset>
