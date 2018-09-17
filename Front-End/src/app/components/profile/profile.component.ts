@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
   public stats;
   public follow;
   public userId;
+  public newPost;
 
   constructor(
     private router: Router,
@@ -31,6 +32,7 @@ export class ProfileComponent implements OnInit {
       this.identity = this.userService.getIdentity();
       this.token = this.userService.getToken();
       this.url = environment.backendUrl;
+      this.newPost = 0;
     }
 
   ngOnInit() {
@@ -49,7 +51,6 @@ export class ProfileComponent implements OnInit {
                     error => {
                       console.log(<any>error);
                       this.success = false;
-                      console.log(this.identity._id);
                       this.router.navigate(['/profile', this.identity._id]);
                     });
   }
@@ -74,6 +75,10 @@ export class ProfileComponent implements OnInit {
                       console.log(<any>error);
                       this.success = false;
                     });
+  }
+
+  addPost(newPost) {
+    this.newPost = newPost;
   }
 
 }
