@@ -22,8 +22,10 @@ export class PersonComponent implements OnInit {
   public total;
   public pages = 1;
   public users: Array<User>;
-  public follows;
-  public followers;
+  public follows = [];
+  public followers = [];
+  public usersFollowers;
+  public usersFollowing;
   public url: string;
   public faUserMinus = faUserMinus;
   public faUserPlus = faUserPlus;
@@ -32,6 +34,7 @@ export class PersonComponent implements OnInit {
   public unfollowUserHover;
   public followUserHover = false;
   @Input() option: string;
+  @Input() userId: string;
 
   constructor(
     private route: Router,
@@ -43,6 +46,7 @@ export class PersonComponent implements OnInit {
     this.token = userService.getToken();
     this.url = environment.backendUrl;
     this.option = 'timeline';
+    this.userId = this.identity._id;
   }
 
   ngOnInit() {
@@ -70,7 +74,15 @@ export class PersonComponent implements OnInit {
                             }
                           }
                           // Devolver listado de personas en la red
-                          this.getUsers(page);
+                          if (this.option === 'timeline') {
+                            this.getUsers(page);
+                          }
+                          if ( this.option === 'following') {
+                            this.getFollowing(this.userId, page);
+                          }
+                          if ( this.option === 'followers') {
+                            this.getFollowers(this.userId, page);
+                          }
                        });
   }
 
@@ -84,6 +96,7 @@ export class PersonComponent implements OnInit {
                           this.total = response.total;
                           this.pages = response.pages;
                           this.users = response.usrs;
+                          console.log(this.users);
                           this.follows = response.usrsFollowing;
                           this.followers = response.usrsFollowers;
                           if (page > this.pages ) {
@@ -101,6 +114,71 @@ export class PersonComponent implements OnInit {
                       }
                     );
   }
+
+  getFollowing(userId, page) {
+    this.userService.getFollowing(userId, page)
+                    .subscribe(
+                      (response: any) => {
+                        if (!response.following) {
+                          this.success = false;
+                        } else {
+                          this.total = response.total;
+                          this.pages = response.pages;
+                          // this.usersFollowing = response.following;
+                          this.usersFollowing = response.following as Array<any>;
+                          this.follows.push(userId);
+                          this.users = this.usersFollowing
+                                                    .map((following, index, array) => {
+                                                      return following.followed;
+                                                    });
+                          console.log(this.users);
+                          if (page > this.pages ) {
+                            this.route.navigate(['/']);
+                          }
+                        }
+                      },
+                      (error: any) => {
+                        console.log(error);
+                        if (error.status === 404) {
+                          this.success = false;
+                          this.route.navigate(['/people/' + this.pages]);
+                        }
+                        this.success = false;
+                      }
+                    );
+  }
+
+  getFollowers(userId, page) {
+    this.userService.getFollowers(userId, page)
+                    .subscribe(
+                      (response: any) => {
+                        if (!response.follower) {
+                          this.success = false;
+                        } else {
+                          this.total = response.total;
+                          this.pages = response.pages;
+                          this.usersFollowers = response.follower as Array<any>;
+                          this.users = this.usersFollowers
+                                                    .map((followers, index, array) => {
+                                                      return followers.user;
+                                                    });
+                          console.log(this.users);
+                          if (page > this.pages ) {
+                            this.route.navigate(['/']);
+                          }
+                        }
+                      },
+                      (error: any) => {
+                        console.log(error);
+                        if (error.status === 404) {
+                          this.success = false;
+                          this.route.navigate(['/people/' + this.pages]);
+                        }
+                        this.success = false;
+                      }
+                    );
+  }
+
 
   changeUnfollowHover(personId) {
     this.followUserHover = !this.followUserHover;
