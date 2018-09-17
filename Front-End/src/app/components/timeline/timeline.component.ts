@@ -5,7 +5,6 @@ import { UserService } from '../../services/user.service';
 import { faImage, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { faTimesCircle as faTimeCircleReg } from '@fortawesome/free-regular-svg-icons';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { retry } from 'rxjs/operators';
 import { PublicationService } from '../../services/publication.service';
 import { UploadService } from '../../services/upload.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -281,4 +280,11 @@ export class TimelineComponent implements OnInit {
                               console.log(<any>error);
                             });
   }
+
+  addPost(newPost) {
+    if (newPost) {
+      this.newPost = newPost;
+    }
+  }
+
 }
