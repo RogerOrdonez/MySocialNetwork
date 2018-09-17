@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
@@ -31,6 +31,7 @@ export class PersonComponent implements OnInit {
   public faUser = faUser;
   public unfollowUserHover;
   public followUserHover = false;
+  @Input() option: string;
 
   constructor(
     private route: Router,
@@ -41,6 +42,7 @@ export class PersonComponent implements OnInit {
     this.identity = userService.getIdentity();
     this.token = userService.getToken();
     this.url = environment.backendUrl;
+    this.option = 'timeline';
   }
 
   ngOnInit() {
@@ -144,5 +146,6 @@ export class PersonComponent implements OnInit {
                         this.success = false;
                       });
   }
+
 
 }

@@ -26,13 +26,13 @@
 
 <!-- Inicio de Publicaciones -->
 <div [ngStyle]="{ 'margin-top':userId ? '10px' : '0px' } ">
-    <div class="publication col-lg-12 bg-light fade-in " *ngFor="let publication of publications ">
+    <div class="publication col-12 bg-light fade-in " *ngFor="let publication of publications ">
         <div class="row publication-row ">
-            <div class="col-lg-1 publication-user-image bg-light">
+            <div class="col-xl-1 col-gl-1 col-md-1 col-sm-1 col-12 publication-user-image bg-light">
                 <img class="img-fluid-user pointer" [routerLink]="[ '/profile', publication.user._id]" *ngIf="publication.user.image" [src]="url + 'get-image-file/' + publication.user.image ">
                 <img class="img-fluid-user pointer" [routerLink]="[ '/profile', publication.user._id]" *ngIf="!publication.user.image" src="assets/no_image.jpg ">
             </div>
-            <div class="col-lg-11 bg-light publication-content ">
+            <div class="col-11 bg-light publication-content ">
                 <div class="dropdown options-content ml-auto float-right" *ngIf="publication.user._id === identity._id && !editMode">
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="sr-only">Toggle Dropdown</span>
