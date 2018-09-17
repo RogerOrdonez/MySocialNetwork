@@ -36,6 +36,7 @@ export class SidebarComponent implements OnInit, OnChanges {
     this.url = environment.backendUrl;
     this.user = new User('', '', '', '', '', '', '', '');
     this.followUserHover = false;
+    this.newPosts = 0;
   }
 
   ngOnInit() {
