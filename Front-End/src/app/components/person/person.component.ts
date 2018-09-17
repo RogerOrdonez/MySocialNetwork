@@ -96,7 +96,6 @@ export class PersonComponent implements OnInit {
                           this.total = response.total;
                           this.pages = response.pages;
                           this.users = response.usrs;
-                          console.log(this.users);
                           this.follows = response.usrsFollowing;
                           this.followers = response.usrsFollowers;
                           if (page > this.pages ) {
@@ -124,14 +123,15 @@ export class PersonComponent implements OnInit {
                         } else {
                           this.total = response.total;
                           this.pages = response.pages;
-                          // this.usersFollowing = response.following;
                           this.usersFollowing = response.following as Array<any>;
-                          this.follows.push(userId);
                           this.users = this.usersFollowing
                                                     .map((following, index, array) => {
                                                       return following.followed;
                                                     });
-                          console.log(this.users);
+                          this.follows = this.usersFollowing
+                                             .map((following, index, array) => {
+                                                return following.followed._id;
+                                              });
                           if (page > this.pages ) {
                             this.route.navigate(['/']);
                           }
@@ -162,7 +162,6 @@ export class PersonComponent implements OnInit {
                                                     .map((followers, index, array) => {
                                                       return followers.user;
                                                     });
-                          console.log(this.users);
                           if (page > this.pages ) {
                             this.route.navigate(['/']);
                           }

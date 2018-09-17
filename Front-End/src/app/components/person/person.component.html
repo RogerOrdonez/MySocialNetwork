@@ -17,22 +17,22 @@
                                 <small class="text-muted" *ngIf="followers.indexOf(person._id) >= 0 && person._id != identity._id">Este usuario te sigue</small>
                                 <small class="text-muted" *ngIf="followers.indexOf(person._id) < 0">&nbsp;</small>
                                 <button type="button" class="btn btn-outline-primary btn-sm btn-block follow" *ngIf="follows.indexOf(person._id) < 0 && person._id != identity._id" (click)="followUser(person._id)">
-                                                <fa-icon [icon]="faUserPlus"></fa-icon>
-                                                Seguir
-                                            </button>
+                                    <fa-icon [icon]="faUserPlus"></fa-icon>
+                                    Seguir
+                                </button>
                                 <button type="button" class="btn btn-primary btn-sm btn-block follow" *ngIf="follows.indexOf(person._id) >= 0 && person._id != unfollowUserHover" (mouseenter)="changeUnfollowHover(person._id)">
-                                                    <fa-icon [icon]="faUserCheck"></fa-icon>
-                                                    Siguiendo
-                                            </button>
+                                    <fa-icon [icon]="faUserCheck"></fa-icon>
+                                    Siguiendo
+                                </button>
                                 <button type="button" class="btn btn-danger btn-sm btn-block follow" *ngIf="follows.indexOf(person._id) >= 0 && person._id == unfollowUserHover" (mouseleave)="changeUnfollowHover(person._id)" (click)="unfollowUser(person._id)">
-                                                <fa-icon [icon]="faUserMinus"></fa-icon>
-                                                Dejar de Seguir
-                                            </button>
+                                    <fa-icon [icon]="faUserMinus"></fa-icon>
+                                    Dejar de Seguir
+                                </button>
                                 <h4>
                                     <small class="badge badge-dark btn-block follow" *ngIf="person._id == identity._id">
-                                                        <fa-icon [icon]="faUser"></fa-icon>
-                                                        Tú
-                                                </small>
+                                        <fa-icon [icon]="faUser"></fa-icon>
+                                        Tú
+                                    </small>
                                 </h4>
                             </div>
 
