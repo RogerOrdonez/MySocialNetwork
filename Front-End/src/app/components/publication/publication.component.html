@@ -1,3 +1,116 @@
-<p>
-  publication works!
-</p>
+<!-- Inicio de Caja para crear nuevas publicaciones -->
+<div class="col-lg-12 bg-light publication-box" *ngIf="!userId">
+    <form #newPublication="ngForm" (submit)="onSubmit(newPublication)">
+        <div class="col-lg-12">
+            <textarea autosize [maxRows]="20" class="form-control form-control-sm" name="text" rows="10" #text="ngModel" [(ngModel)]="publication.text" required placeholder="Crea una publicación" rows="3"></textarea>
+        </div>
+        <label for="upload-photo" class="nav-link text-primary">
+                                <fa-icon [icon]="faImage"></fa-icon>
+                                Agrega una imagen
+                    </label>
+        <input type="file" #inputFile name="photo" id="upload-photo" (change)="fileChangeEvent($event)" />
+        <!-- Preview de la imagen -->
+        <div class="preview " *ngIf="urlImage">
+            <img class="preview-image img-thumbnail rounded " [src]="urlImage ">
+            <fa-icon class="remove-image-black" (click)="removeImage()" [icon]="faTimesCircle "></fa-icon>
+        </div>
+
+        <div class="col-lg-12 ml-auto">
+            <button type="submit" class="btn btn-primary post float-right " [disabled]="!newPublication.valid ">
+                            Publicar
+                        </button>
+        </div>
+    </form>
+</div>
+<!-- Fin de la Caja para crear nuevas publicaciones -->
+
+<!-- Inicio de Publicaciones -->
+<div [ngStyle]="{ 'margin-top':userId ? '10px' : '0px' } ">
+    <div class="publication col-lg-12 bg-light fade-in " *ngFor="let publication of publications ">
+        <div class="row publication-row ">
+            <div class="col-lg-1 publication-user-image bg-light">
+                <img class="img-fluid-user pointer" [routerLink]="[ '/profile', publication.user._id]" *ngIf="publication.user.image" [src]="url + 'get-image-file/' + publication.user.image ">
+                <img class="img-fluid-user pointer" [routerLink]="[ '/profile', publication.user._id]" *ngIf="!publication.user.image" src="assets/no_image.jpg ">
+            </div>
+            <div class="col-lg-11 bg-light publication-content ">
+                <div class="dropdown options-content ml-auto float-right" *ngIf="publication.user._id === identity._id && !editMode">
+                    <button type="button" class="btn btn-sm btn-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item pointer text-left" (click)="editPost(publication._id, publication.text)">Editar</a>
+                        <a class="dropdown-item pointer text-left" data-toggle="modal" data-target="#confirmation">Borrar</a>
+                    </div>
+                </div>
+                <p>
+                    <a class="pointer " [routerLink]="[ '/profile', publication.user._id] ">
+                        <strong>{{ publication.user.name + ' ' + publication.user.surname}}</strong>
+                        <small> @{{ publication.user.nick }}</small>
+                    </a>
+                    <small class="publication-time "> {{ (publication.created_at | amFromUnix) | amLocale:'es' | amTimeAgo }} </small>
+                </p>
+                <p *ngIf="publication._id !== editedPublication">
+                    {{ publication.text }}
+                </p>
+                <!-- Modal -->
+                <div class="modal fade" id="confirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalCenterTitle">Eliminar publicación</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                            </div>
+                            <div class="modal-body text-center">
+                                ¿Está seguro que desea eliminar esta publicación?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-sm btn-outline-primary" data-dismiss="modal" (click)="deletePost(publication._id)">Borrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <textarea #textUpdate="ngModel" [(ngModel)]="editedText" *ngIf="editMode && publication._id === editedPublication" autosize [minRows]="3" [maxRows]="20" cols="30" class="form-control form-control-sm text-update" name="text" required placeholder="Agrega un texto para esta publicación"
+                    (keyup)="updateText()">
+                            </textarea>
+                <!-- Editando imagen de la publicación -->
+                <label for="add-photo" class="nav-link text-primary add-photo" *ngIf="editMode && (!publication.file || publication.file === 'null' || editedImage === 'null') && publication._id === editedPublication">
+                                    <fa-icon [icon]="faImage"></fa-icon>
+                                    Agrega una imagen
+                            </label>
+                <input type="file" #updateFile name="file" id="add-photo" (change)="fileUpdateEvent($event)" />
+                <div class="preview " *ngIf="filesToUpdate && publication._id === editedPublication">
+                    <img class="preview-image img-thumbnail rounded " [src]="urlUpdateImage">
+                    <fa-icon class="remove-image-black" (click)="removeUpdateImage()" [icon]="faTimesCircle "></fa-icon>
+                </div>
+
+                <div class="row row-image">
+                    <div class="col-lg-12 publication-image">
+                        <img class="img-fluid rounded  d-inline-block img-publication" *ngIf="publication.file && publication.file !== 'null' && !editedImage" [src]="url + 'get-image-pub/' + publication.file">
+                        <div *ngIf="editMode && publication._id === editedPublication && !editedImage" class="d-inline-block align-top remove-image-edit">
+                            <fa-icon *ngIf="publication.file && publication.file !== 'null'" (click)="deleteImage(publication.file)" [icon]="faTimesCircle "></fa-icon>
+                        </div>
+                        <!--<div *ngIf="editMode && publication._id === editedPublication && !editedImage" class="d-inline-block align-top remove-image-edit">
+                                        <fa-icon *ngIf="publication.file && publication.file !== 'null'" (click)="deleteImage(publication.file)" [icon]="faTimesCircle "></fa-icon>
+                                    </div>-->
+                    </div>
+                    <!--<div *ngIf="editMode && publication._id === editedPublication && !editedImage" class="col-lg-1 publication-image remove-image-edit">
+                                    <fa-icon *ngIf="publication.file && publication.file !== 'null'" (click)="deleteImage(publication.file)" [icon]="faTimesCircle "></fa-icon>
+                                </div>-->
+                </div>
+                <div class="btn-edit-options">
+                    <button *ngIf="editMode && publication._id === editedPublication" type="button" class="btn btn-outline-danger btn-sm float-right btn-update" (click)="cancelEdit()">Cancelar</button>
+                    <button *ngIf="editMode && publication._id === editedPublication" type="button" class="btn btn-outline-primary btn-sm float-right btn-update" (click)="updatePublication()" [disabled]="!changed">Actualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fin de las publicaciones -->
+<div class="col-lg-12 bg-light see-more ">
+    <button class="btn btn-primary btn-sm btn-block " (click)="viewMore() " *ngIf="!noMore ">
+        Ver más publicaciones
+    </button>
+</div>
