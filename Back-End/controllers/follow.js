@@ -51,7 +51,7 @@ function getFollowingUsers(request, response) {
         page = request.params.id;
     }
 
-    var itemsPerPage = 4;
+    var itemsPerPage = 12;
     Follow.find({ user: userId }).populate({ path: 'followed' }).paginate(page, itemsPerPage, (err, follows, total) => {
         if (err) return response.status(500).send({ message: 'Error: No se pudo obtener los follows.' });
         if (!follows) return response.status(404).send({ message: 'Error: No obtuvo los follows.' });
@@ -80,7 +80,7 @@ function getFollowerUsers(request, response) {
         page = request.params.id;
     }
 
-    var itemsPerPage = 4;
+    var itemsPerPage = 12;
 
     Follow.find({ followed: userId }).populate('user').paginate(page, itemsPerPage, (err, follows, total) => {
         if (err) return response.status(500).send({ message: 'Error: No se pudo obtener los follows.' });
