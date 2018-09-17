@@ -99,4 +99,16 @@ export class UserService {
     return this.http.get(this.url + 'user/' + userId, {headers: headers});
   }
 
+  getFollowing(userId, page = null) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json')
+                                     .set('Authorization', this.getToken());
+    return this.http.get(this.url + 'following/' + userId + '/' + page, {headers: headers});
+  }
+
+  getFollowers(userId, page = null) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json')
+                                     .set('Authorization', this.getToken());
+    return this.http.get(this.url + 'follower/' + userId + '/' + page, {headers: headers});
+  }
+
 }
