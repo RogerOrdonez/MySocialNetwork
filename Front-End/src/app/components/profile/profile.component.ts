@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
   public follow;
   public userId;
   public newPost;
+  public activeTab;
 
   constructor(
     private router: Router,
@@ -33,6 +34,7 @@ export class ProfileComponent implements OnInit {
       this.token = this.userService.getToken();
       this.url = environment.backendUrl;
       this.newPost = 0;
+      this.activeTab = 'publications-tab';
     }
 
   ngOnInit() {
@@ -61,6 +63,7 @@ export class ProfileComponent implements OnInit {
                          params => {
                            const id = params['id'];
                            this.userId = id;
+                           this.newPost = 0;
                            this.getUser(id);
                            this.getCounters(id);
                          });

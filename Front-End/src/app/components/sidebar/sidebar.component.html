@@ -9,13 +9,13 @@
                 <h3>{{ user.name + ' ' + user.surname}} </h3>
                 <span class="text-muted">@{{ user.nick }}</span>
                 <div class="text-center">
-                    <small class="text-muted" *ngIf="follower">Este usuario te sigue</small>
+                    <small class="text-muted" *ngIf="follower && user._id !== identity._id">Este usuario te sigue</small>
                     <small class="text-muted" *ngIf="!follower">&nbsp;</small>
                     <button type="button" class="btn btn-outline-primary btn-sm btn-block follow" *ngIf="!follow && user._id !== identity._id" (click)="followUser(user._id)">
                                     <fa-icon [icon]="faUserPlus"></fa-icon>
                                     Seguir
                     </button>
-                    <button type="button" class="btn btn-primary btn-sm btn-block follow" *ngIf="follow && user._id != unfollowUserHover" (mouseenter)="changeUnfollowHover(user._id)">
+                    <button type="button" class="btn btn-primary btn-sm btn-block follow" *ngIf="follow && user._id != unfollowUserHover && user._id !== identity._id" (mouseenter)="changeUnfollowHover(user._id)">
                                         <fa-icon [icon]="faUserCheck"></fa-icon>
                                         Siguiendo
                     </button>

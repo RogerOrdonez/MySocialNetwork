@@ -137,7 +137,10 @@ export class SidebarComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if ( changes.newPosts.currentValue > 0) {
+    if (changes.userId) {
+      this.ngOnInit();
+    }
+    if (changes.newPosts && changes.newPosts.currentValue > 0) {
       this.newPosts = changes.newPosts.currentValue;
     }
   }

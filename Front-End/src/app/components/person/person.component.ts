@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
@@ -12,7 +12,7 @@ import { Follow } from '../../models/follow.model';
   templateUrl: './person.component.html',
   styleUrls: ['./person.component.css']
 })
-export class PersonComponent implements OnInit {
+export class PersonComponent implements OnInit, OnChanges {
   public identity;
   public token;
   public page;
@@ -86,7 +86,7 @@ export class PersonComponent implements OnInit {
                        });
   }
 
-  getUsers(page) {
+  getUsers(page, option?) {
     this.userService.getUsers(page)
                     .subscribe(
                       (response: any) => {
@@ -95,11 +95,15 @@ export class PersonComponent implements OnInit {
                         } else {
                           this.total = response.total;
                           this.pages = response.pages;
-                          this.users = response.usrs;
+                          if (!option){
+                            this.users = response.usrs;
+                          }
                           this.follows = response.usrsFollowing;
                           this.followers = response.usrsFollowers;
-                          if (page > this.pages ) {
-                            this.route.navigate(['/']);
+                          if (this.pages) {
+                            if (page > this.pages ) {
+                              this.route.navigate(['/']);
+                            }
                           }
                         }
                       },
@@ -125,15 +129,18 @@ export class PersonComponent implements OnInit {
                           this.pages = response.pages;
                           this.usersFollowing = response.following as Array<any>;
                           this.users = this.usersFollowing
-                                                    .map((following, index, array) => {
+                                                    .map((following) => {
                                                       return following.followed;
                                                     });
-                          this.follows = this.usersFollowing
+                          this.getUsers(1, 'Following');
+                          /*this.follows = this.usersFollowing
                                              .map((following, index, array) => {
                                                 return following.followed._id;
-                                              });
-                          if (page > this.pages ) {
-                            this.route.navigate(['/']);
+                                              });*/
+                          if (this.pages) {
+                            if (page > this.pages ) {
+                              this.route.navigate(['/']);
+                            }
                           }
                         }
                       },
@@ -159,11 +166,14 @@ export class PersonComponent implements OnInit {
                           this.pages = response.pages;
                           this.usersFollowers = response.follower as Array<any>;
                           this.users = this.usersFollowers
-                                                    .map((followers, index, array) => {
-                                                      return followers.user;
-                                                    });
-                          if (page > this.pages ) {
-                            this.route.navigate(['/']);
+                            .map((followers) => {
+                              return followers.user;
+                            });
+                          this.getUsers(1, 'Followers');
+                          if (this.pages) {
+                            if (page > this.pages) {
+                              this.route.navigate(['/']);
+                            }
                           }
                         }
                       },
@@ -224,5 +234,10 @@ export class PersonComponent implements OnInit {
                       });
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.userId) {
+      this.ngOnInit();
+    }
+  }
 
 }
