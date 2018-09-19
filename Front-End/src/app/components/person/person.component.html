@@ -5,10 +5,10 @@
                 <div class="row">
                     <div class="card-group people" [className]="option !== 'timeline' ? 'card-group col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12' : 'card-group col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12'" *ngFor="let person of users">
                         <div class="card">
-                            <img class="card-img-top img-fluid pointer" [routerLink]="['/profile', person._id]" *ngIf="person.image" [src]="url + 'get-image-file/' + person.image">
-                            <img class="card-img-top img-fluid pointer" [routerLink]="['/profile', person._id]" *ngIf="!person.image" src="assets/no_image.jpg">
+                            <img class="card-img-top img-fluid pointer" *ngIf="person.image" (click)="sendProfile(person._id)" [src]="url + 'get-image-file/' + person.image">
+                            <img class="card-img-top img-fluid pointer" *ngIf="!person.image" (click)="sendProfile(person._id)" src="assets/no_image.jpg">
                             <div class="card-body">
-                                <a class="pointer info-link" [routerLink]="['/profile', person._id]">
+                                <a class="pointer info-link" (click)="sendProfile(person._id)">
                                     <h5 class="card-title">{{ person.name + ' ' + person.surname }}</h5>
                                     <p class="text-muted"> @{{ person.nick }}</p>
                                 </a>

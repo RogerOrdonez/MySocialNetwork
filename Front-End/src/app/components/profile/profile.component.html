@@ -4,23 +4,23 @@
             <app-sidebar [userId]="userId" [newPosts]="newPost"></app-sidebar>
         </div>
         <div class="col-lg-7 timeline">
-            <ngb-tabset type="pills" activeId="following-tab" justify="justified">
+            <ngb-tabset #tabset type="pills" [activeId]="activeTab" justify="justified">
                 <ngb-tab id="publications-tab">
                     <ng-template ngbTabTitle><b>Publicaciones</b></ng-template>
                     <ng-template ngbTabContent>
-                        <app-publication [userId]="userId" (sentPost)="addPost($event)"></app-publication>
+                        <app-publication (outUserId)="getUserId($event)" [userId]="userId" (sentPost)="addPost($event)"></app-publication>
                     </ng-template>
                 </ngb-tab>
                 <ngb-tab id="following-tab">
                     <ng-template ngbTabTitle><b>Siguiendo</b></ng-template>
                     <ng-template ngbTabContent>
-                        <app-person [option]="'following'" [userId]="userId"></app-person>
+                        <app-person (outUserId)="getUserId($event)" [option]="'following'" [userId]="userId"></app-person>
                     </ng-template>
                 </ngb-tab>
                 <ngb-tab id="followers-tab">
                     <ng-template ngbTabTitle><b>Seguidores</b></ng-template>
                     <ng-template ngbTabContent>
-                        <app-person [option]="'followers'" [userId]="userId"></app-person>
+                        <app-person (outUserId)="getUserId($event)" [option]="'followers'" [userId]="userId"></app-person>
                     </ng-template>
                 </ngb-tab>
             </ngb-tabset>

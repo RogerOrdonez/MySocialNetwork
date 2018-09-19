@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../../models/user.model';
 import { Follow } from '../../models/follow.model';
@@ -23,6 +23,7 @@ export class ProfileComponent implements OnInit {
   public userId;
   public newPost;
   public activeTab;
+  @ViewChild('tabset') tabSet: any;
 
   constructor(
     private router: Router,
@@ -82,6 +83,11 @@ export class ProfileComponent implements OnInit {
 
   addPost(newPost) {
     this.newPost = newPost;
+  }
+
+  getUserId(userId) {
+    console.log(this.tabSet);
+    this.tabSet.activeId = 'publications-tab';
   }
 
 }

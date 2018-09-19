@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
@@ -35,6 +35,7 @@ export class PersonComponent implements OnInit, OnChanges {
   public followUserHover = false;
   @Input() option: string;
   @Input() userId: string;
+  @Output() outUserId = new EventEmitter();
 
   constructor(
     private route: Router,
@@ -238,6 +239,11 @@ export class PersonComponent implements OnInit, OnChanges {
     if (changes.userId) {
       this.ngOnInit();
     }
+  }
+
+  sendProfile(userId) {
+    this.outUserId.emit(userId);
+    this.route.navigate(['/profile', userId]);
   }
 
 }
