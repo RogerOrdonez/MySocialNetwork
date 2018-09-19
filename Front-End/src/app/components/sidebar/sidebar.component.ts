@@ -28,7 +28,6 @@ export class SidebarComponent implements OnInit, OnChanges {
   public faUser = faUser;
   public unfollowUserHover;
   public followUserHover: boolean;
-  private changeLog: string[] = [];
 
   constructor(private userService: UserService, private followService: FollowService) {
     this.identity = this.userService.getIdentity();
