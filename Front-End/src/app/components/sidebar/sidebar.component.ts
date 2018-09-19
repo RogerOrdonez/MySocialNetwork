@@ -21,6 +21,7 @@ export class SidebarComponent implements OnInit, OnChanges {
   public follower;
   @Input() userId;
   @Input() newPosts;
+  @Input() newFollowing;
   public user: User;
   public faUserMinus = faUserMinus;
   public faUserPlus = faUserPlus;
@@ -36,6 +37,7 @@ export class SidebarComponent implements OnInit, OnChanges {
     this.user = new User('', '', '', '', '', '', '', '');
     this.followUserHover = false;
     this.newPosts = 0;
+    this.newFollowing = 0;
   }
 
   ngOnInit() {
@@ -141,6 +143,9 @@ export class SidebarComponent implements OnInit, OnChanges {
     }
     if (changes.newPosts && changes.newPosts.currentValue > 0) {
       this.newPosts = changes.newPosts.currentValue;
+    }
+    if(changes.newFollowing && changes.newFollowing.currentValue > 0) {
+      this.newFollowing = changes.newFollowing.currentValue;
     }
   }
 

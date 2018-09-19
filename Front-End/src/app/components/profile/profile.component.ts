@@ -23,6 +23,7 @@ export class ProfileComponent implements OnInit {
   public userId;
   public newPost;
   public activeTab;
+  public newFollowing;
   @ViewChild('tabset') tabSet: any;
 
   constructor(
@@ -36,6 +37,7 @@ export class ProfileComponent implements OnInit {
       this.url = environment.backendUrl;
       this.newPost = 0;
       this.activeTab = 'publications-tab';
+      this.newFollowing = 0;
     }
 
   ngOnInit() {
@@ -86,8 +88,11 @@ export class ProfileComponent implements OnInit {
   }
 
   getUserId(userId) {
-    console.log(this.tabSet);
     this.tabSet.activeId = 'publications-tab';
+  }
+
+  getFollowing(following) {
+    this.newFollowing = following;
   }
 
 }

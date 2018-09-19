@@ -45,7 +45,7 @@
             </div>
             <div class="col-sm text-center">
                 <i class="fa fa-heart"></i> Siguiendo
-                <h5 class="text-primary pointer" [routerLink]="[ '/profile', user._id]">{{ stats.following }}</h5>
+                <h5 class="text-primary pointer" [routerLink]="[ '/profile', user._id]">{{ stats.following + newFollowing}}</h5>
             </div>
             <div class="col-sm text-center">
                 <i class="fa fa-file-o"></i> Seguidores

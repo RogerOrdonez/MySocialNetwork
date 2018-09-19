@@ -36,6 +36,8 @@ export class PersonComponent implements OnInit, OnChanges {
   @Input() option: string;
   @Input() userId: string;
   @Output() outUserId = new EventEmitter();
+  public following;
+  @Output() sendfollowing = new EventEmitter();
 
   constructor(
     private route: Router,
@@ -48,6 +50,7 @@ export class PersonComponent implements OnInit, OnChanges {
     this.url = environment.backendUrl;
     this.option = 'timeline';
     this.userId = this.identity._id;
+    this.following = 0;
   }
 
   ngOnInit() {
@@ -74,6 +77,7 @@ export class PersonComponent implements OnInit, OnChanges {
                               this.prevPage = 1;
                             }
                           }
+                          this.following = 0;
                           // Devolver listado de personas en la red
                           if (this.option === 'timeline') {
                             this.getUsers(page);
@@ -208,6 +212,8 @@ export class PersonComponent implements OnInit, OnChanges {
                         } else {
                           this.follows.push(followed);
                           this.changeUnfollowHover(followed);
+                          this.following += 1;
+                          this.sendfollowing.emit(this.following);
                           this.success = true;
                         }
                       },
@@ -227,6 +233,8 @@ export class PersonComponent implements OnInit, OnChanges {
                             this.follows.splice(unfollowed, 1);
                           }
                           this.changeUnfollowHover(followed);
+                          this.following -= 1;
+                          this.sendfollowing.emit(this.following);
                           this.success = true;
                         }
                       },
