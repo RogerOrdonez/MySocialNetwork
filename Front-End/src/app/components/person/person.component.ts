@@ -51,6 +51,7 @@ export class PersonComponent implements OnInit, OnChanges {
     this.option = 'timeline';
     this.userId = this.identity._id;
     this.following = 0;
+    this.page = 1;
   }
 
   ngOnInit() {
@@ -77,6 +78,7 @@ export class PersonComponent implements OnInit, OnChanges {
                               this.prevPage = 1;
                             }
                           }
+
                           this.following = 0;
                           // Devolver listado de personas en la red
                           if (this.option === 'timeline') {
@@ -99,8 +101,8 @@ export class PersonComponent implements OnInit, OnChanges {
                           this.success = false;
                         } else {
                           this.total = response.total;
-                          this.pages = response.pages;
-                          if (!option){
+                          if (!option) {
+                            this.pages = response.pages;
                             this.users = response.usrs;
                           }
                           this.follows = response.usrsFollowing;
@@ -132,16 +134,13 @@ export class PersonComponent implements OnInit, OnChanges {
                         } else {
                           this.total = response.total;
                           this.pages = response.pages;
+                          this.page = page;
                           this.usersFollowing = response.following as Array<any>;
                           this.users = this.usersFollowing
-                                                    .map((following) => {
-                                                      return following.followed;
-                                                    });
+                                           .map((following) => {
+                                              return following.followed;
+                                           });
                           this.getUsers(1, 'Following');
-                          /*this.follows = this.usersFollowing
-                                             .map((following, index, array) => {
-                                                return following.followed._id;
-                                              });*/
                           if (this.pages) {
                             if (page > this.pages ) {
                               this.route.navigate(['/']);
@@ -252,6 +251,53 @@ export class PersonComponent implements OnInit, OnChanges {
   sendProfile(userId) {
     this.outUserId.emit(userId);
     this.route.navigate(['/profile', userId]);
+  }
+
+  goNext() {
+    if (this.option === 'timeline') {
+      this.route.navigate(['/people', this.nextPage]);
+    } else {
+      this.page = this.nextPage;
+      this.nextPage = this.page + 1;
+      this.prevPage = this.page - 1;
+
+      if (this.prevPage <= 0) {
+        this.prevPage = 1;
+      }
+
+      this.following = 0;
+
+      if (this.option === 'following') {
+        this.getFollowing(this.userId, this.page);
+      }
+      if (this.option === 'followers') {
+        this.getFollowers(this.userId, this.page);
+      }
+    }
+  }
+
+  goPrevious() {
+    console.log('Previous page');
+    if (this.option === 'timeline') {
+      this.route.navigate(['/people', this.prevPage]);
+    } else {
+      this.page = this.prevPage;
+      this.nextPage = this.page + 1;
+      this.prevPage = this.page - 1;
+
+      if (this.prevPage <= 0) {
+        this.prevPage = 1;
+      }
+
+      this.following = 0;
+
+      if (this.option === 'following') {
+        this.getFollowing(this.userId, this.page);
+      }
+      if (this.option === 'followers') {
+        this.getFollowers(this.userId, this.page);
+      }
+    }
   }
 
 }
