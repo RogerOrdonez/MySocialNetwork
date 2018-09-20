@@ -5,8 +5,8 @@
                 <img class="rounded-circle img-fluid pointer" [src]="url + 'get-image-file/' + user.image" *ngIf="user.image" [routerLink]="[ '/profile', user._id] ">
                 <img class="rounded-circle img-fluid pointer" src="assets/no_image.jpg" *ngIf="!user.image" [routerLink]="[ '/profile', user._id] ">
             </div>
-            <div class="col-12 text-center pointer" [routerLink]="[ '/profile', user._id] ">
-                <h3>{{ user.name + ' ' + user.surname}} </h3>
+            <div class="col-12 text-center">
+                <h3 class="pointer" [routerLink]="[ '/profile', user._id] ">{{ user.name + ' ' + user.surname}} </h3>
                 <span class="text-muted pointer" [routerLink]="[ '/profile', user._id] ">@{{ user.nick }}</span>
                 <div class="text-center">
                     <small class="text-muted" *ngIf="follower && user._id !== identity._id">Este usuario te sigue</small>
