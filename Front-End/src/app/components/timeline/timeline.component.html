@@ -1,7 +1,7 @@
 <div class="container-fluid fade-in">
     <div class="row" *ngIf="publications">
         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <app-sidebar [userId]="userId" [newPosts]="newPost"></app-sidebar>
+            <app-sidebar (option)="getOption($event)" [userId]="userId" [newPosts]="newPost"></app-sidebar>
         </div>
         <div class="col-lg-6 timeline">
             <app-publication (sentPost)="addPost($event)"></app-publication>

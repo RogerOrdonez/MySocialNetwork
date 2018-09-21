@@ -46,6 +46,7 @@ export class TimelineComponent implements OnInit {
   @ViewChild('inputFile') inputFile: ElementRef;
   @ViewChild('updateFile') updateFile: ElementRef;
   closeResult: string;
+  public option: any;
 
   constructor(
       private publicationService: PublicationService,
@@ -284,6 +285,12 @@ export class TimelineComponent implements OnInit {
   addPost(newPost) {
     if (newPost) {
       this.newPost = newPost;
+    }
+  }
+
+  getOption(option) {
+    if (option && option.option) {
+      this.router.navigate(['/profile', this.identity._id, option.option]);
     }
   }
 
