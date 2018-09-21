@@ -21,10 +21,6 @@ import { MomentModule } from 'angular2-moment';
 import { ProfileComponent } from './components/profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PublicationComponent } from './components/publication/publication.component';
-import { MainComponent } from './messages/components/main/main.component';
-import { AddComponent } from './messages/components/add/add.component';
-import { ReceivedComponent } from './messages/components/received/received.component';
-import { SendedComponent } from './messages/components/sended/sended.component';
 
 
 @NgModule({
@@ -38,11 +34,7 @@ import { SendedComponent } from './messages/components/sended/sended.component';
     TimelineComponent,
     SidebarComponent,
     ProfileComponent,
-    PublicationComponent,
-    MainComponent,
-    AddComponent,
-    ReceivedComponent,
-    SendedComponent
+    PublicationComponent
   ],
   imports: [
     BrowserModule,
