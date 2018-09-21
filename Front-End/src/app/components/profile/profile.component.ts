@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit {
   public newPost;
   public activeTab;
   public newFollowing;
+  public option;
   @ViewChild('tabset') tabSet: any;
 
   constructor(
@@ -36,7 +37,7 @@ export class ProfileComponent implements OnInit {
       this.token = this.userService.getToken();
       this.url = environment.backendUrl;
       this.newPost = 0;
-      this.activeTab = 'publications-tab';
+      // this.activeTab = 'publications-tab';
       this.newFollowing = 0;
     }
 
@@ -65,6 +66,11 @@ export class ProfileComponent implements OnInit {
                        .subscribe(
                          params => {
                            const id = params['id'];
+                           this.option = params['option'];
+                           if (this.option) {
+                            this.tabSet.activeId = `${this.option}-tab`;
+                            this.activeTab = `${this.option}-tab`;
+                           }
                            this.userId = id;
                            this.newPost = 0;
                            this.getUser(id);
@@ -88,11 +94,23 @@ export class ProfileComponent implements OnInit {
   }
 
   getUserId(userId) {
-    this.tabSet.activeId = 'publications-tab';
+    if (this.option) {
+      this.tabSet.activeId = `${this.option}-tab`;
+    } else {
+      this.tabSet.activeId = 'publications-tab';
+    }
   }
 
   getFollowing(following) {
     this.newFollowing = following;
+  }
+
+  getOption(option) {
+    console.log(option);
+    if (option && option.option) {
+      this.tabSet.activeId = `${option.option}-tab`;
+      this.activeTab = `${option.option}-tab`;
+    }
   }
 
 }
