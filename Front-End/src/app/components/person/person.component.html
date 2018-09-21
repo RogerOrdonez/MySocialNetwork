@@ -14,7 +14,7 @@
                                 </a>
                             </div>
                             <div class="card-footer text-center">
-                                <small class="text-muted" *ngIf="followers.indexOf(person._id) >= 0 && person._id != identity._id">Este usuario te sigue</small>
+                                <small class="text-muted" *ngIf="followers.indexOf(person._id) >= 0 && person._id != identity._id">Te sigue</small>
                                 <small class="text-muted" *ngIf="followers.indexOf(person._id) < 0">&nbsp;</small>
                                 <button type="button" class="btn btn-outline-primary btn-sm btn-block follow" *ngIf="follows.indexOf(person._id) < 0 && person._id != identity._id" (click)="followUser(person._id)">
                                     <fa-icon [icon]="faUserPlus"></fa-icon>
