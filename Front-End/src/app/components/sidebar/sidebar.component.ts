@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { environment } from '../../../environments/environment';
 import { User } from '../../models/user.model';
@@ -22,6 +22,7 @@ export class SidebarComponent implements OnInit, OnChanges {
   @Input() userId;
   @Input() newPosts;
   @Input() newFollowing;
+  @Output() option = new EventEmitter();
   public user: User;
   public faUserMinus = faUserMinus;
   public faUserPlus = faUserPlus;
@@ -147,6 +148,14 @@ export class SidebarComponent implements OnInit, OnChanges {
     if(changes.newFollowing && changes.newFollowing.currentValue > 0) {
       this.newFollowing = changes.newFollowing.currentValue;
     }
+  }
+
+  goOption(option, userId) {
+    // this.router.navigate(['/profile', userId]);
+    this.option.emit({
+      'option': option,
+      'userId': userId
+    });
   }
 
 }
