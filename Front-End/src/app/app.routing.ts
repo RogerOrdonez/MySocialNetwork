@@ -18,6 +18,7 @@ const routes: Routes = [
   { path: 'people', component: PersonComponent },
   { path: 'people/:page', component: PersonComponent },
   { path: 'profile/:id', component: ProfileComponent},
+  { path: 'profile/:id/:option', component: ProfileComponent},
   { path: '**', component: HomeComponent },
 ];
 
