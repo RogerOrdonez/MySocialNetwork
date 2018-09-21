@@ -21,6 +21,7 @@ import { MomentModule } from 'angular2-moment';
 import { ProfileComponent } from './components/profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PublicationComponent } from './components/publication/publication.component';
+import { MessagesModule } from './messages/messages.module';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { PublicationComponent } from './components/publication/publication.compo
     HttpClientModule,
     MomentModule,
     AutosizeModule,
-    NgbModule
+    NgbModule,
+    MessagesModule
   ],
   providers: [UserService,
               FollowService,
