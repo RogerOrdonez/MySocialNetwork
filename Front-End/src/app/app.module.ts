@@ -22,6 +22,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PublicationComponent } from './components/publication/publication.component';
 import { MessagesModule } from './messages/messages.module';
+import { MessageService } from './services/message.service';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { MessagesModule } from './messages/messages.module';
   ],
   providers: [UserService,
               FollowService,
-              PublicationService
+              PublicationService,
+              MessageService
              ],
   bootstrap: [AppComponent]
 })
