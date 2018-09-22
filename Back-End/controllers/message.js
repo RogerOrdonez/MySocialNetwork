@@ -35,9 +35,10 @@ function getReceivedMessages(request, response) {
     if (request.params.page) {
         page = request.params.page;
     }
-    var itemsPerPage = 4;
+    var itemsPerPage = 8;
     Message.find({ receiver: userId })
         .populate('emitter', { 'name': 1, 'surname': 1, 'nick': 1, 'image': 1 })
+        .sort('-created_at')
         .paginate(page, itemsPerPage, (err, messages, total) => {
             if (err) return response.status(500).send({ message: 'Error en la petición al buscar mensajes' });
             if (!messages) return response.status(404).send({ message: 'No hay mensajes' });
@@ -55,9 +56,10 @@ function getSendedMessages(request, response) {
     if (request.params.page) {
         page = request.params.page;
     }
-    var itemsPerPage = 4;
+    var itemsPerPage = 8;
     Message.find({ emitter: userId })
         .populate('emitter receiver', { 'name': 1, 'surname': 1, 'nick': 1, 'image': 1 })
+        .sort('-created_at')
         .paginate(page, itemsPerPage, (err, messages, total) => {
             if (err) return response.status(500).send({ message: 'Error en la petición al buscar mensajes' });
             if (!messages) return response.status(404).send({ message: 'No hay mensajes' });
