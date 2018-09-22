@@ -1,3 +1,28 @@
-<p>
-  add works!
-</p>
+<div class="col-lg-9 send-message">
+    <h3> Enviar nuevo mensaje </h3>
+    <div *ngIf="succes === true" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Mensaje enviado exitosamente.</strong> Miralo en <a [routerLink]="['/messages/sended']"> tus mensajes enviados</a>.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div *ngIf="succes === false" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error al enviar mensaje.</strong> Ocurrió un error inesperado, por favor vuelve a intentarlo.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <form #formAdd="ngForm" (ngSubmit)="onSubmit(formAdd)">
+        <label> Para: </label>
+        <!-- Listado de seguidores -->
+        <select *ngIf="follows" name="receiver" [(ngModel)]="message.receiver" class="form-control" required>
+          <option *ngFor="let follow of follows" value="{{ follow.user._id }}">
+            {{ follow.user.name + ' ' + follow.user.surname + ' (' + follow.user.nick + ')' }}
+          </option>
+        </select>
+        <label for="text">Mensaje</label>
+        <textarea name="text" #text="ngModel" [(ngModel)]="message.text" cols="30" rows="3" class="form-control" required></textarea>
+        <p *ngIf="!text.valid && text.touched"> El mensajes no puede quedar vacío</p>
+        <button [disabled]="!formAdd.valid" type="submit" class="btn btn-primary btn-send"> Enviar mensaje </button>
+    </form>
+</div>

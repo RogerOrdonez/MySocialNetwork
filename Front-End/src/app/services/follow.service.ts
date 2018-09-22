@@ -26,4 +26,10 @@ export class FollowService {
     return this.httpClient.delete(this.url + 'follow/' + userId, {headers: headers});
   }
 
+  getMyFollows(token) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json')
+                                     .set('Authorization', token);
+    return this.httpClient.get(this.url + 'get-my-follows/true', {headers: headers});
+  }
+
 }

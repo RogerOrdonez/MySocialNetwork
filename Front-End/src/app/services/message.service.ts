@@ -16,7 +16,7 @@ export class MessageService {
     const params = JSON.stringify(message);
     const headers = new HttpHeaders().set('Content-Type', 'application/json')
                                      .set('Authorization', token);
-    return this.http.post(this.url + 'message', params, {headers: headers});
+    return this.http.post(this.url + 'send-message', params, {headers: headers});
   }
 
   getMyMessages(token, page = 1) {
