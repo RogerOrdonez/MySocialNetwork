@@ -1,16 +1,13 @@
-<div class="col-lg-4">
-    <div class="sidebar-admin">
-        <ul class="nav nav-pills nav-stacked">
-            <li role="presentation">
-                <a href="">Enviar Mensaje</a>
-                <a href="">Mensajes Enviados</a>
-                <a href="">Mensajes Recibidos</a>
-            </li>
-        </ul>
+<div class="row">
+    <div class="col-2 float-left">
+        <div class="list-group" role="tablist">
+            <a class="list-group-item list-group-item-action" data-toggle="list" routerLinkActive="active" [routerLink]="['send']" role="tab" aria-controls="send">Enviar Mensaje</a>
+            <a class="list-group-item list-group-item-action" data-toggle="list" routerLinkActive="active" [routerLink]="['sended']" role="tab" aria-controls="sended">Mensajes Enviados</a>
+            <a class="list-group-item list-group-item-action" data-toggle="list" routerLinkActive="active" [routerLink]="['received']" role="tab" aria-controls="received">Mensajes Recibidos</a>
+        </div>
     </div>
-</div>
-
-<div class="col-lg-8">
-    <!--Componentes Router-Outlet-->
-    <router-outlet></router-outlet>
+    <div class="col-lg-8 float-right">
+        <!--Componentes Router-Outlet-->
+        <router-outlet></router-outlet>
+    </div>
 </div>
