@@ -1,5 +1,5 @@
 import { Component, OnInit, DoCheck, OnChanges, OnDestroy } from '@angular/core';
-import { faHome, faNewspaper, faUsers, faSignInAlt, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faNewspaper, faUsers, faSignInAlt, faUserPlus, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { UserService} from './services/user.service';
 import {  RouterLinkActive, Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { environment } from '../environments/environment';
@@ -18,6 +18,7 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
   public faUsers = faUsers;
   public faSignInAlt = faSignInAlt;
   public faUserPlus = faUserPlus;
+  public faEnvelope = faEnvelope;
   public identity;
   public url: string;
   public actualRoute = '/timeline';
