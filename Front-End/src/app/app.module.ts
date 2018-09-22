@@ -23,6 +23,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PublicationComponent } from './components/publication/publication.component';
 import { MessagesModule } from './messages/messages.module';
 import { MessageService } from './services/message.service';
+import { UserGuard } from './services/user.guard';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { MessageService } from './services/message.service';
   providers: [UserService,
               FollowService,
               PublicationService,
-              MessageService
+              MessageService,
+              UserGuard
              ],
   bootstrap: [AppComponent]
 })
