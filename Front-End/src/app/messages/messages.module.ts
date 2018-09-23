@@ -10,12 +10,14 @@ import { SendedComponent } from './components/sended/sended.component';
 import { MessageRoutingModule } from './message.routing';
 import { MessageService } from '../services/message.service';
 import { FollowService } from '../services/follow.service';
+import { MomentModule } from 'angular2-moment';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    MessageRoutingModule
+    MessageRoutingModule,
+    MomentModule
   ],
   declarations: [
     MainComponent,
