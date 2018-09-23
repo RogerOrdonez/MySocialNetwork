@@ -1,3 +1,29 @@
-<p>
-  received works!
-</p>
+<div class="messages">
+    <!-- Inicio de mensajes -->
+    <div class="publication col-10 bg-light fade-in " *ngFor="let message of messages ">
+        <div class="row publication-row ">
+            <div class="col-xl-1 col-gl-1 col-md-1 col-sm-1 col-12 publication-user-image bg-light">
+                <img class="img-fluid-user pointer" [routerLink]="[ '/profile', message.emitter._id]" *ngIf="message.emitter.image" [src]="url + 'get-image-file/' + message.emitter.image ">
+                <img class="img-fluid-user pointer" [routerLink]="[ '/profile', message.emitter._id]" *ngIf="!message.emitter.image" src="assets/no_image.jpg ">
+            </div>
+            <div class="col-11 bg-light publication-content ">
+                <p>
+                    <a class="pointer " [routerLink]="[ '/profile', message.emitter._id] ">
+                                Para: <strong>{{ message.emitter.name + ' ' + message.emitter.surname}}</strong>
+                                <small> @{{ message.emitter.nick }}</small>
+                            </a>
+                    <small class="publication-time "> {{ (message.created_at | amFromUnix) | amLocale:'es' | amTimeAgo }} </small>
+                </p>
+                <p>
+                    {{ message.text }}
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- Fin de mensajes -->
+    <div class="col-lg-10 bg-light see-more " *ngIf="!noMore ">
+        <button class="btn btn-primary btn-sm btn-block " (click)="viewMore() ">
+            Ver más mensajes
+        </button>
+    </div>
+</div>

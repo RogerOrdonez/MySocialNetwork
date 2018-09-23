@@ -21,6 +21,10 @@ export class ReceivedComponent implements OnInit {
   public url;
   public succes: boolean;
   public messages: Message[];
+  public total;
+  public page;
+  public noMore: boolean;
+
   constructor(
     private followService: FollowService,
     private messageService: MessageService,
@@ -32,6 +36,7 @@ export class ReceivedComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.page = 1;
     this.getMessages();
   }
 
@@ -40,7 +45,12 @@ export class ReceivedComponent implements OnInit {
                        .subscribe( (response: any) => {
                         if (response.messages) {
                           this.messages = response.messages;
-                          console.log(this.messages);
+                          this.total = response.total;
+                          if (this.messages.length === this.total) {
+                            this.noMore = true;
+                          } else {
+                            this.noMore = false;
+                          }
                         }
                        },
                        error => {
@@ -49,5 +59,13 @@ export class ReceivedComponent implements OnInit {
                        });
   }
 
+  viewMore() {
+    if (this.messages.length === (this.total)) {
+      this.noMore = true;
+    } else {
+      this.page += 1;
+    }
+    this.messageService.getEmittedMessages(this.token, this.page);
+  }
 
 }
