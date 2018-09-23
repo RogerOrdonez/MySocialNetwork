@@ -15,12 +15,15 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./sended.component.css']
 })
 export class SendedComponent implements OnInit {
-  public message: Message;
   public identity;
   public token;
   public url;
   public succes: boolean;
   public messages: Message[];
+  public total;
+  public page;
+  public noMore: boolean;
+
   constructor(
     private followService: FollowService,
     private messageService: MessageService,
@@ -32,6 +35,7 @@ export class SendedComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.page = 1;
     this.getMessages();
   }
 
@@ -40,13 +44,27 @@ export class SendedComponent implements OnInit {
                        .subscribe( (response: any) => {
                         if (response.messages) {
                           this.messages = response.messages;
-                          console.log(this.messages);
+                          this.total = response.total;
+                          if (this.messages.length === this.total) {
+                            this.noMore = true;
+                          } else {
+                            this.noMore = false;
+                          }
                         }
                        },
                        error => {
                          this.succes = false;
                          console.log(<any>error);
                        });
+  }
+
+  viewMore() {
+    if (this.messages.length === (this.total)) {
+      this.noMore = true;
+    } else {
+      this.page += 1;
+    }
+    this.messageService.getEmittedMessages(this.token, this.page);
   }
 
 }
