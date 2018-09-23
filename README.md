@@ -1,6 +1,10 @@
 # ngFollow
 Repositorio de código fuente para mi proyecto personal de Red Social. Desarrollo con MEAN Stack (MongoDB, Express.js, Angular, y Node.js).
 
+Mi objetivo con este proyecto ha sido desarrollar mis conocimientos con las tecnologías mencionadas anteriormente. Es un proyecto totalmente personal con el cual decidí practicar mis habilidades, sin embargo, eres libre de utilizar este proyecto como base para cualquier proyecto que quieras llevar a cabo, con o sin fines comerciales. 
+
+Si quieres hacer mejoras en el proyecto y te gustaría regalarme tu feedback para corregir errores o mejorar funcionalidades, te agradecería mucho y te invitaría a realizar un Pull request sobre este repositorio.
+
 ## Requerimientos previos.
 Antes de poner en funcionamiento este proyecto, debes asegurarte de tener instalado en tu equipo lo siguiente:
 
